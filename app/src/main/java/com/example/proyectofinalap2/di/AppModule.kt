@@ -1,7 +1,7 @@
 package com.example.proyectofinalap2.di
 
-import com.example.proyectofinalap2.data.remote.MecanicoApi
-import com.example.proyectofinalap2.data.repository.MecanicosRepository
+import com.example.proyectofinalap2.data.remote.ProyectoFinalApi
+import com.example.proyectofinalap2.data.repository.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -25,17 +25,44 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideTickets(moshi: Moshi): MecanicoApi {
+    fun provideTickets(moshi: Moshi): ProyectoFinalApi {
         return Retrofit.Builder()
             .baseUrl("")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
-            .create(MecanicoApi::class.java)
+            .create(ProyectoFinalApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideMecanicosRepository(mecanicosApi: MecanicoApi): MecanicosRepository {
+    //Mecanico
+    fun provideMecanicosRepository(mecanicosApi: ProyectoFinalApi): MecanicosRepository {
         return MecanicosRepository(mecanicosApi)
     }
+
+    //Cliente
+    fun provideClientesRepository(clientesApi: ProyectoFinalApi): ClienteRepository {
+        return ClienteRepository(clientesApi)
+    }
+
+    //Cita
+    fun provideCitasRepository(citasApi: ProyectoFinalApi): CitasRepository {
+        return CitasRepository(citasApi)
+    }
+
+    //Reporte
+    fun provideReportesRepository(reportesApi: ProyectoFinalApi): ReportesRepository {
+        return ReportesRepository(reportesApi)
+    }
+
+    //Solicitud
+    fun provideSolicitudesRepository(solicitudApi: ProyectoFinalApi): SolicitudesRepository{
+        return SolicitudesRepository(solicitudApi)
+    }
+
+    //Vehiculo
+    fun provideVehiculosRepository(vehiculoApi: ProyectoFinalApi): VehiculoRepository{
+        return VehiculoRepository(vehiculoApi)
+    }
+
 }

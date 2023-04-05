@@ -1,9 +1,7 @@
 package com.example.proyectofinalap2.data.repository
 
-import com.example.proyectofinalap2.data.remote.MecanicoApi
+import com.example.proyectofinalap2.data.remote.ProyectoFinalApi
 import com.example.proyectofinalap2.data.remote.dto.ClienteDto
-import com.example.proyectofinalap2.data.remote.dto.MecanicoDto
-import com.example.proyectofinalap2.data.remote.dto.VehiculoDto
 import com.example.proyectofinalap2.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -12,7 +10,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 class ClienteRepository @Inject constructor(
-    private val api: MecanicoApi
+    private val api: ProyectoFinalApi
 ) {
     fun gestClientes(): Flow<Resource<List<ClienteDto>>> = flow {
         try {

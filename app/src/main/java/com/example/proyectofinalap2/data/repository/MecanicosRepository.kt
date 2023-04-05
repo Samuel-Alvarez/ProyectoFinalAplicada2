@@ -28,6 +28,10 @@ class MecanicosRepository @Inject constructor(
         api.putMecanicos(id, mecanicoDto)
     }
 
+    suspend fun postMecanico(mecanicoDto: MecanicoDto):MecanicoDto{
+        return api.postMecanico(mecanicoDto)
+    }
+
     fun getMecanicosbyId(id: Int): Flow<Resource<MecanicoDto>> = flow {
         try {
             emit(Resource.Loading())

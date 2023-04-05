@@ -6,8 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.proyectofinalap2.data.remote.dto.MecanicoDto
-import com.example.proyectofinalap2.data.repository.MecanicosRepository
+import com.example.proyectofinalap2.data.remote.dto.ClienteDto
+import com.example.proyectofinalap2.data.repository.ClienteRepository
 import com.example.proyectofinalap2.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,36 +17,35 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
-data class MecanicosState(
+data class ClientesState(
     val isLoading: Boolean = false,
-    val mecanico: MecanicoDto ? =  null,
+    val cliente: ClienteDto? =  null,
     val error: String = ""
 )
 
 @HiltViewModel
-class MecanicoViewModel @Inject constructor(
-    private val mecanicosRepository: MecanicosRepository
+class ClienteViewModel @Inject constructor(
+    private val clienteRepository: ClienteRepository
 ): ViewModel() {
 
 
-    var uiState = MutableStateFlow(MecanicoListState())
+    var uiState = MutableStateFlow(ClienteListState())
         private set
 
-    var uiStateMecanico = MutableStateFlow(MecanicosState())
+    var uiStateCliente = MutableStateFlow(ClientesState())
         private set
 
-    var mecanicoId by mutableStateOf(0)
+    var clienteId by mutableStateOf(0)
+    var vehiculoId by mutableStateOf(0)
     var nombres by mutableStateOf("")
-    var area by mutableStateOf("")
     var telefono by mutableStateOf("")
-    var disponible by mutableStateOf(0)
+    var direccion by mutableStateOf("")
 
-    private var _state = mutableStateOf(MecanicoListState())
-    val state: State<MecanicoListState> = _state
+    private var _state = mutableStateOf(ClienteListState())
+    val state: State<ClienteListState> = _state
 
     init {
-        mecanicosRepository.gestMecanicos().onEach { result->
+        clienteRepository.gestClientes().onEach { result->
             when(result){
                 is Resource.Loading -> {
                     uiState.update {
@@ -56,7 +55,7 @@ class MecanicoViewModel @Inject constructor(
 
                 is Resource.Success -> {
                     uiState.update {
-                        it.copy(Mecanico = result.data ?: emptyList())
+                        it.copy(Cliente = result.data ?: emptyList())
                     }
                 }
 
@@ -69,24 +68,23 @@ class MecanicoViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun setMecanico(id:Int){
-        mecanicoId = id
-        mecanicosRepository.getMecanicosbyId(mecanicoId).onEach { result ->
+    fun setCliente(id:Int){
+        clienteId = id
+        clienteRepository.getClientesbyId(clienteId).onEach { result ->
             when (result) {
                 is Resource.Loading -> {
-                    uiStateMecanico.update { it.copy(isLoading = true) }
+                    uiStateCliente.update { it.copy(isLoading = true) }
                 }
                 is Resource.Success -> {
-                    uiStateMecanico.update {
-                        it.copy(mecanico = result.data )
+                    uiStateCliente.update {
+                        it.copy(cliente = result.data )
                     }
-                    nombres = uiStateMecanico.value.mecanico!!.nombres
-                    area = uiStateMecanico.value.mecanico!!.area
-                    disponible = uiStateMecanico.value.mecanico!!.disponible
-                    telefono = uiStateMecanico.value.mecanico!!.telefono
+                    nombres = uiStateCliente.value.cliente!!.nombres
+                    telefono = uiStateCliente.value.cliente!!.telefono
+                    direccion = uiStateCliente.value.cliente!!.direccion
                 }
                 is Resource.Error -> {
-                    uiStateMecanico.update { it.copy(error = result.message ?: "Error desconocido") }
+                    uiStateCliente.update { it.copy(error = result.message ?: "Error desconocido") }
                 }
             }
         }.launchIn(viewModelScope)
@@ -94,13 +92,14 @@ class MecanicoViewModel @Inject constructor(
 
     fun modificar(){
         viewModelScope.launch {
-            mecanicosRepository.putMecanicos(mecanicoId.toInt(),
-                MecanicoDto(
-                    mecanicoId = mecanicoId.toInt(),
+            clienteRepository.putClientes(clienteId.toInt(),
+                ClienteDto(
+                    clienteId = clienteId.toInt(),
                     nombres = nombres,
-                    area = area,
                     telefono = telefono,
-                    disponible = disponible,
+                    direccion = direccion,
+                    uiStateCliente.value.cliente!!.vehiculoId,
+
                 )
             )
         }
@@ -108,13 +107,14 @@ class MecanicoViewModel @Inject constructor(
 
     fun guardar(){
         viewModelScope.launch {
-            mecanicosRepository.postMecanico(
-                MecanicoDto(
-                    mecanicoId = 0,
+            clienteRepository.postClientes(
+                ClienteDto(
+                    clienteId =0,
+                    vehiculoId = 0,
                     nombres = nombres,
-                    area = area,
                     telefono = telefono,
-                    disponible = disponible,
+                    direccion = direccion,
+
                 )
             )
         }

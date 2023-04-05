@@ -10,11 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.example.proyectofinalap2.util.Screen
+import com.example.proyectofinalap2.view.MecanicoViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegistroProblema() {
+fun RegistroProblema(navHostController: NavHostController, viewModel: MecanicoViewModel = hiltViewModel()) {
 
     Scaffold(
         topBar = {
@@ -37,9 +41,9 @@ fun RegistroProblema() {
                     .padding(8.dp, vertical = 60.dp),
             ) {
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Nombre Mecanico") },
+                    value = viewModel.nombres,
+                    onValueChange = {viewModel.nombres = it },
+                    label = { Text(text = "Nombres Mecanico") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
@@ -50,8 +54,8 @@ fun RegistroProblema() {
                 )
 
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
+                    value = viewModel.area,
+                    onValueChange = { viewModel.area = it},
                     label = { Text(text = "Area") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
@@ -63,7 +67,7 @@ fun RegistroProblema() {
                 )
                 OutlinedTextField(
                     value = "",
-                    onValueChange = { },
+                    onValueChange = {},
                     label = { Text(text = "Estado") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
@@ -74,9 +78,9 @@ fun RegistroProblema() {
                     }
                 )
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Nombre Cliente") },
+                    value = viewModel.nombres,
+                    onValueChange = { viewModel.nombres = it},
+                    label = { Text(text = "Nombres Cliente") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
@@ -139,6 +143,8 @@ fun RegistroProblema() {
                         .fillMaxWidth()
                         .padding(15.dp),
                     onClick = {
+                        viewModel.guardar()
+                        navHostController.navigate(Screen.mecanicoListado.route)
 
                     }
                 ) {

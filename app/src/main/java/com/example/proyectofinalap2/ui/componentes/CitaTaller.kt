@@ -103,7 +103,7 @@ fun CitaTaller() {
                 OutlinedTextField(
                     value = "",
                     onValueChange = { },
-                    label = { Text(text = "Marca vehiculo") },
+                    label = { Text(text = "Marca vehículo") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
@@ -115,7 +115,7 @@ fun CitaTaller() {
                 OutlinedTextField(
                     value = "",
                     onValueChange = { },
-                    label = { Text(text = "Año vehiculo") },
+                    label = { Text(text = "Año vehículo") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
@@ -135,7 +135,7 @@ fun CitaTaller() {
                 ) {
                     Icon(imageVector = Icons.Filled.Save, contentDescription = "Send")
                     Text(
-                        text = "Solicitar",
+                        text = "Enviar",
                         fontWeight = FontWeight.Black,
                     )
                 }

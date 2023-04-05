@@ -12,10 +12,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.example.proyectofinalap2.view.SolicitudesViewModel
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SolicitarMecanico() {
+fun SolicitarMecanico(navHostController: NavHostController, viewModel: SolicitudesViewModel = hiltViewModel()) {
 
     Scaffold(
         topBar = {
@@ -114,7 +118,7 @@ fun SolicitarMecanico() {
                 OutlinedTextField(
                     value = "",
                     onValueChange = { },
-                    label = { Text(text = "Marca vehiculo") },
+                    label = { Text(text = "Marca vehículo") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
@@ -126,7 +130,7 @@ fun SolicitarMecanico() {
                 OutlinedTextField(
                     value = "",
                     onValueChange = { },
-                    label = { Text(text = "Año vehiculo") },
+                    label = { Text(text = "Año vehículo") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(

@@ -4,6 +4,6 @@ import java.util.*
 
 data class VehiculoDto(
     val vehiculoId: Int,
-    val marca: Int,
-    val year: Date,
+    val marca: String,
+    val year: String,
 )

@@ -5,7 +5,7 @@ import java.util.Date
 data class CitaDto(
     val citaId: Int,
     val concepto: String,
-    val fecha: Date,
+    val fecha: String,
     val clienteId: Int,
     val mecanicoId: Int,
 )

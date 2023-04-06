@@ -1,6 +1,7 @@
 package com.example.proyectofinalap2.data.repository
 
 import com.example.proyectofinalap2.data.remote.ProyectoFinalApi
+import com.example.proyectofinalap2.data.remote.dto.SolicitudDto
 import com.example.proyectofinalap2.data.remote.dto.VehiculoDto
 import com.example.proyectofinalap2.util.Resource
 import kotlinx.coroutines.flow.Flow
@@ -26,6 +27,10 @@ class VehiculoRepository @Inject constructor(
 
     suspend fun putVehiculos(id:Int, vehiculoDto: VehiculoDto){
         api.putVehiculos(id, vehiculoDto)
+    }
+
+    suspend fun postVehiculos(vehiculoDto: VehiculoDto): VehiculoDto {
+        return api.postVehiculos(vehiculoDto)
     }
 
     fun getVehiculosbyId(id: Int): Flow<Resource<VehiculoDto>> = flow {

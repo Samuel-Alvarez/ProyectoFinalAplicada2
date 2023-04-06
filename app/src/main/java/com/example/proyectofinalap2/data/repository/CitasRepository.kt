@@ -2,6 +2,7 @@ package com.example.proyectofinalap2.data.repository
 
 import com.example.proyectofinalap2.data.remote.ProyectoFinalApi
 import com.example.proyectofinalap2.data.remote.dto.CitaDto
+import com.example.proyectofinalap2.data.remote.dto.ClienteDto
 import com.example.proyectofinalap2.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -26,6 +27,10 @@ class CitasRepository @Inject constructor(
 
     suspend fun putCitas(id:Int, citaDto: CitaDto){
         api.putCitas(id, citaDto)
+    }
+
+    suspend fun postCitas(citaDto: CitaDto): CitaDto {
+        return api.postCitas(citaDto)
     }
 
     fun getCitasbyId(id: Int): Flow<Resource<CitaDto>> = flow {

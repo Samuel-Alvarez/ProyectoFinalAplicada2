@@ -4,8 +4,8 @@ import java.util.Date
 
 data class ReporteDto(
     val reporteId: Int,
-    val concepto: Int,
-    val fecha: Date,
+    val concepto: String,
+    val fecha: String,
     val clienteId: Int,
     val mecanicoId: Int,
 )

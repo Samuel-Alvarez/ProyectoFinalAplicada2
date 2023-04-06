@@ -68,7 +68,7 @@ fun myApp(){
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun DefaultPreview() {
-    ProyectoFinalAp2Theme() {
+    ProyectoFinalAp2Theme(){
         myApp()
     }
 }

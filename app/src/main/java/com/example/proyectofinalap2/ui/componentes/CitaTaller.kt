@@ -59,45 +59,6 @@ fun CitaTaller(navHostController: NavHostController, viewModel: CitasViewModel =
                     .padding(8.dp, vertical = 60.dp),
             ) {
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {},
-                    label = { Text(text = "Nombre Mecanico") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Description,
-                            contentDescription = null
-                        )
-                    }
-                )
-
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Area") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Subject,
-                            contentDescription = null
-                        )
-                    }
-                )
-
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Nombre Cliente") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Subject,
-                            contentDescription = null
-                        )
-                    }
-                )
-
-                OutlinedTextField(
                     value = viewModel.fecha,
                     onValueChange = {viewModel.fecha = it},
                     modifier = Modifier.fillMaxWidth(),
@@ -124,7 +85,7 @@ fun CitaTaller(navHostController: NavHostController, viewModel: CitasViewModel =
                 )
                 OutlinedTextField(
                     value = viewModel.concepto,
-                    onValueChange = {viewModel.concepto = it },
+                    onValueChange = { viewModel.concepto = it},
                     label = { Text(text = "Concepto Problema") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
@@ -136,8 +97,8 @@ fun CitaTaller(navHostController: NavHostController, viewModel: CitasViewModel =
                 )
                 OutlinedTextField(
                     value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Marca vehículo") },
+                    onValueChange = {viewModel.mecanicoId},
+                    label = { Text(text = "Id Mecanico") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
@@ -148,20 +109,8 @@ fun CitaTaller(navHostController: NavHostController, viewModel: CitasViewModel =
                 )
                 OutlinedTextField(
                     value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Año vehículo") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Subject,
-                            contentDescription = null
-                        )
-                    }
-                )
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Modelo vehiculo") },
+                    onValueChange = {viewModel.clienteId},
+                    label = { Text(text = "Id Cliente") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(

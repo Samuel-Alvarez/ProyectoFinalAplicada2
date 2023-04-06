@@ -52,134 +52,67 @@ fun SolicitarMecanico(navHostController: NavHostController, viewModel: Solicitud
 
         ) {
 
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp, vertical = 60.dp),
-            ) {
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Nombre Mecanico") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Description,
-                            contentDescription = null
-                        )
-                    }
-                )
+            OutlinedTextField(
+                value = viewModel.fecha,
+                onValueChange = {viewModel.fecha = it},
+                modifier = Modifier.fillMaxWidth(),
+                label = { Text(text = "Fecha") },
+                readOnly = true,
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.CalendarMonth,
+                        contentDescription = "",
+                    )
+                },
 
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Area") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
+                trailingIcon = {
+                    IconButton(
+                        onClick = { date.show() }
+                    ) {
                         Icon(
-                            imageVector = Icons.Default.Subject,
-                            contentDescription = null
-                        )
-                    }
-                )
-
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Nombre Cliente") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Subject,
-                            contentDescription = null
-                        )
-                    }
-                )
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Direccion") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Subject,
-                            contentDescription = null
-                        )
-                    }
-                )
-                OutlinedTextField(
-                    value = viewModel.fecha,
-                    onValueChange = {viewModel.fecha = it},
-                    modifier = Modifier.fillMaxWidth(),
-                    label = { Text(text = "Fecha") },
-                    readOnly = true,
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.CalendarMonth,
+                            imageVector = Icons.Default.CalendarToday,
                             contentDescription = "",
                         )
-                    },
+                    }
+                }
 
-                    trailingIcon = {
-                        IconButton(
-                            onClick = { date.show() }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Default.CalendarToday,
-                                contentDescription = "",
-                            )
-                        }
-                    }
-
-                )
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Concepto Problema") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Subject,
-                            contentDescription = null
-                        )
-                    }
-                )
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Marca vehículo") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Subject,
-                            contentDescription = null
-                        )
-                    }
-                )
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Año vehículo") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Subject,
-                            contentDescription = null
-                        )
-                    }
-                )
-                OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Modelo vehiculo") },
-                    modifier = Modifier.fillMaxWidth(),
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Default.Subject,
-                            contentDescription = null
-                        )
-                    }
-                )
+            )
+            OutlinedTextField(
+                value = viewModel.concepto,
+                onValueChange = { viewModel.concepto = it},
+                label = { Text(text = "Concepto Problema") },
+                modifier = Modifier.fillMaxWidth(),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Subject,
+                        contentDescription = null
+                    )
+                }
+            )
+            OutlinedTextField(
+                value = "",
+                onValueChange = {viewModel.mecanicoId},
+                label = { Text(text = "Id Mecanico") },
+                modifier = Modifier.fillMaxWidth(),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Subject,
+                        contentDescription = null
+                    )
+                }
+            )
+            OutlinedTextField(
+                value = "",
+                onValueChange = {viewModel.clienteId},
+                label = { Text(text = "Id Cliente") },
+                modifier = Modifier.fillMaxWidth(),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Subject,
+                        contentDescription = null
+                    )
+                }
+            )
 
                 Button(
                     modifier = Modifier

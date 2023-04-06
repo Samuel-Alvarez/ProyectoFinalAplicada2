@@ -38,8 +38,10 @@ class ReportesViewModel @Inject constructor(
     var reporteId by mutableStateOf(0)
     var clienteId by mutableStateOf(0)
     var mecanicoId by mutableStateOf(0)
-    var concepto by mutableStateOf("")
     var fecha by mutableStateOf("")
+    var concepto by mutableStateOf("")
+
+
 
 
     private var _state = mutableStateOf(ReporteListStates())

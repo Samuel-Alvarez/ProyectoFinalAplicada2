@@ -120,5 +120,33 @@ class ClienteViewModel @Inject constructor(
             )
         }
     }
+    fun eliminar(id:Int){
+        viewModelScope.launch {
+            clienteRepository.deleteClientes(id)
+
+            clienteRepository.gestClientes().onEach { result->
+                when(result){
+                    is Resource.Loading -> {
+                        uiState.update {
+                            it.copy(isLoading = true)
+                        }
+                    }
+
+                    is Resource.Success -> {
+                        uiState.update {
+                            it.copy(Cliente = result.data ?: emptyList())
+                        }
+                    }
+
+                    is Resource.Error -> {
+                        uiState.update {
+                            it.copy(error = result.message ?: "Error desconocido")
+                        }
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
+
+    }
 
 }

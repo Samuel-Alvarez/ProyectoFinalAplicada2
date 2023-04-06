@@ -120,5 +120,33 @@ class MecanicoViewModel @Inject constructor(
             )
         }
     }
+    fun eliminar(id:Int){
+        viewModelScope.launch {
+            mecanicosRepository.deleteMecanico(id)
+
+            mecanicosRepository.gestMecanicos().onEach { result->
+                when(result){
+                    is Resource.Loading -> {
+                        uiState.update {
+                            it.copy(isLoading = true)
+                        }
+                    }
+
+                    is Resource.Success -> {
+                        uiState.update {
+                            it.copy(Mecanico = result.data ?: emptyList())
+                        }
+                    }
+
+                    is Resource.Error -> {
+                        uiState.update {
+                            it.copy(error = result.message ?: "Error desconocido")
+                        }
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
+
+    }
 
 }

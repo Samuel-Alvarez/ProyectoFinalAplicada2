@@ -7,6 +7,7 @@ import com.example.proyectofinalap2.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 
@@ -31,6 +32,9 @@ class VehiculoRepository @Inject constructor(
 
     suspend fun postVehiculos(vehiculoDto: VehiculoDto): VehiculoDto {
         return api.postVehiculos(vehiculoDto)
+    }
+    suspend fun deleteVehiculo(id: Int): Response<Unit> {
+        return api.deletevehiculo(id)
     }
 
     fun getVehiculosbyId(id: Int): Flow<Resource<VehiculoDto>> = flow {

@@ -94,5 +94,33 @@ class ReportesViewModel @Inject constructor(
             )
         }
     }
+    fun eliminar(id:Int){
+        viewModelScope.launch {
+            reportesRepository.deleteReportes(id)
+
+            reportesRepository.gestReportes().onEach { result->
+                when(result){
+                    is Resource.Loading -> {
+                        uiState.update {
+                            it.copy(isLoading = true)
+                        }
+                    }
+
+                    is Resource.Success -> {
+                        uiState.update {
+                            it.copy(Reporte = result.data ?: emptyList())
+                        }
+                    }
+
+                    is Resource.Error -> {
+                        uiState.update {
+                            it.copy(error = result.message ?: "Error desconocido")
+                        }
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
+
+    }
 
 }

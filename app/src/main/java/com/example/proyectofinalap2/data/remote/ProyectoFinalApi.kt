@@ -18,6 +18,8 @@ interface ProyectoFinalApi{
 
     @POST("api/Mecanicos")
     suspend fun postMecanico(@Body mecanicoDto: MecanicoDto): MecanicoDto
+    @DELETE("api/Mecanicos/{id}")
+    suspend fun deletemecanico(@Path("id") id: Int) : Response<Unit>
 
         //Citas
     @GET("api/Citas")
@@ -30,6 +32,8 @@ interface ProyectoFinalApi{
     suspend fun putCitas(@Path("id") id:Int, @Body citaDto: CitaDto): Response<Unit>
     @POST("api/Citas")
     suspend fun postCitas(@Body citaDto: CitaDto): CitaDto
+    @DELETE("api/Citas/{id}")
+    suspend fun deletecita(@Path("id") id: Int) : Response<Unit>
 
     //Reportes
     @GET("api/Reportes")
@@ -42,6 +46,8 @@ interface ProyectoFinalApi{
     suspend fun putReportes(@Path("id") id:Int, @Body reporteDto: ReporteDto): Response<Unit>
     @POST("api/Reportes")
     suspend fun postReportes(@Body reporteDto: ReporteDto): ReporteDto
+    @DELETE("api/Reportes/{id}")
+    suspend fun deletereporte(@Path("id") id: Int) : Response<Unit>
 
     //Solicitudes
     @GET("api/Solicitudes")
@@ -54,6 +60,8 @@ interface ProyectoFinalApi{
     suspend fun putSolicitudes(@Path("id") id:Int, @Body solicitudDto: SolicitudDto): Response<Unit>
     @POST("api/Solicitudes")
     suspend fun postSolucitudes(@Body solicitudDto: SolicitudDto): SolicitudDto
+    @DELETE("api/Solicitudes/{id}")
+    suspend fun deletesolicitud(@Path("id") id: Int) : Response<Unit>
 
 
     //Vehiculo
@@ -67,6 +75,8 @@ interface ProyectoFinalApi{
     suspend fun putVehiculos(@Path("id") id:Int, @Body vehiculoDto: VehiculoDto): Response<Unit>
     @POST("api/Vehiculos")
     suspend fun postVehiculos(@Body vehiculoDto: VehiculoDto): VehiculoDto
+    @DELETE("api/Vehiculos/{id}")
+    suspend fun deletevehiculo(@Path("id") id: Int) : Response<Unit>
 
     //Cliente
     @GET("api/Clientes")
@@ -79,5 +89,7 @@ interface ProyectoFinalApi{
     suspend fun putClientes(@Path("id") id:Int, @Body clienteDto: ClienteDto): Response<Unit>
     @POST("api/Clientes")
     suspend fun postClientes(@Body clienteDto: ClienteDto): ClienteDto
+    @DELETE("api/Clientes/{id}")
+    suspend fun deletecliente(@Path("id") id: Int) : Response<Unit>
 
 }

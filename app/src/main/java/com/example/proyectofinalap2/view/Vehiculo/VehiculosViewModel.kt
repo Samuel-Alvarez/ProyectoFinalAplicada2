@@ -39,6 +39,7 @@ class VehiculosViewModel @Inject constructor(
         private set
 
     var vehiculoId by mutableStateOf(0)
+    var modelo by mutableStateOf("")
     var marca by mutableStateOf("")
     var year by mutableStateOf("")
 
@@ -72,6 +73,7 @@ class VehiculosViewModel @Inject constructor(
             vehiculoRepository.putVehiculos(vehiculoId.toInt(),
                 VehiculoDto(
                     vehiculoId = vehiculoId.toInt(),
+                    modelo = modelo,
                     marca = marca,
                     year = year
                 )
@@ -84,11 +86,40 @@ class VehiculosViewModel @Inject constructor(
             vehiculoRepository.postVehiculos(
                 VehiculoDto(
                     vehiculoId = 0,
+                    modelo = modelo,
                     marca = marca,
                     year = year
                 )
             )
         }
+    }
+    fun eliminar(id:Int){
+        viewModelScope.launch {
+            vehiculoRepository.deleteVehiculo(id)
+
+            vehiculoRepository.gestVehiculos().onEach { result->
+                when(result){
+                    is Resource.Loading -> {
+                        uiState.update {
+                            it.copy(isLoading = true)
+                        }
+                    }
+
+                    is Resource.Success -> {
+                        uiState.update {
+                            it.copy(Vehiculo = result.data ?: emptyList())
+                        }
+                    }
+
+                    is Resource.Error -> {
+                        uiState.update {
+                            it.copy(error = result.message ?: "Error desconocido")
+                        }
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
+
     }
 
 }

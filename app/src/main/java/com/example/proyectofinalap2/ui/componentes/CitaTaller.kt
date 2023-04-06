@@ -1,21 +1,42 @@
 package com.example.proyectofinalap2.ui.componentes
 
+import android.app.DatePickerDialog
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Description
-import androidx.compose.material.icons.filled.Save
-import androidx.compose.material.icons.filled.Subject
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
+import com.example.proyectofinalap2.util.Screen
+import com.example.proyectofinalap2.view.Cita.CitasViewModel
+import com.example.proyectofinalap2.view.MecanicoViewModel
+import com.example.proyectofinalap2.view.SolicitudesViewModel
+import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CitaTaller() {
+fun CitaTaller(navHostController: NavHostController, viewModel: CitasViewModel = hiltViewModel()) {
+    val calendar = Calendar.getInstance()
+    val year = calendar.get(Calendar.YEAR)
+    val month = calendar.get(Calendar.MONTH)
+    val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+    val contexto = LocalContext.current
+
+
+    val date = DatePickerDialog(
+        contexto, {d, year, month, day->
+            val month = month + 1
+            viewModel.fecha = "$year-$month-$day"
+        },year, month, day
+    )
 
     Scaffold(
         topBar = {
@@ -39,7 +60,7 @@ fun CitaTaller() {
             ) {
                 OutlinedTextField(
                     value = "",
-                    onValueChange = { },
+                    onValueChange = {},
                     label = { Text(text = "Nombre Mecanico") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
@@ -77,20 +98,33 @@ fun CitaTaller() {
                 )
 
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
-                    label = { Text(text = "Fecha") },
+                    value = viewModel.fecha,
+                    onValueChange = {viewModel.fecha = it},
                     modifier = Modifier.fillMaxWidth(),
+                    label = { Text(text = "Fecha") },
+                    readOnly = true,
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Default.Subject,
-                            contentDescription = null
+                            imageVector = Icons.Default.CalendarMonth,
+                            contentDescription = "",
                         )
+                    },
+
+                    trailingIcon = {
+                        IconButton(
+                            onClick = { date.show() }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.CalendarToday,
+                                contentDescription = "",
+                            )
+                        }
                     }
+
                 )
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = { },
+                    value = viewModel.concepto,
+                    onValueChange = {viewModel.concepto = it },
                     label = { Text(text = "Concepto Problema") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
@@ -124,13 +158,26 @@ fun CitaTaller() {
                         )
                     }
                 )
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = { },
+                    label = { Text(text = "Modelo vehiculo") },
+                    modifier = Modifier.fillMaxWidth(),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Subject,
+                            contentDescription = null
+                        )
+                    }
+                )
 
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(15.dp),
                     onClick = {
-
+                        viewModel.guardar()
+                        navHostController.navigate(Screen.mecanicoListado.route)
                     }
                 ) {
                     Icon(imageVector = Icons.Filled.Save, contentDescription = "Send")

@@ -95,5 +95,33 @@ class SolicitudesViewModel @Inject constructor(
             )
         }
     }
+    fun eliminar(id:Int){
+        viewModelScope.launch {
+            solicitudesRepository.deleteSolicitudes(id)
+
+            solicitudesRepository.gestSolicitudes().onEach { result->
+                when(result){
+                    is Resource.Loading -> {
+                        uiState.update {
+                            it.copy(isLoading = true)
+                        }
+                    }
+
+                    is Resource.Success -> {
+                        uiState.update {
+                            it.copy(Solicitud = result.data ?: emptyList())
+                        }
+                    }
+
+                    is Resource.Error -> {
+                        uiState.update {
+                            it.copy(error = result.message ?: "Error desconocido")
+                        }
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
+
+    }
 
 }

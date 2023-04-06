@@ -7,6 +7,7 @@ import com.example.proyectofinalap2.util.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
 
@@ -31,6 +32,9 @@ class CitasRepository @Inject constructor(
 
     suspend fun postCitas(citaDto: CitaDto): CitaDto {
         return api.postCitas(citaDto)
+    }
+    suspend fun deleteCitas(id: Int): Response<Unit> {
+        return api.deletecita(id)
     }
 
     fun getCitasbyId(id: Int): Flow<Resource<CitaDto>> = flow {

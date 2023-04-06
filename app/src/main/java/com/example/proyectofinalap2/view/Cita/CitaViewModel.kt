@@ -98,7 +98,7 @@ class CitasViewModel @Inject constructor(
                     fecha = fecha,
                     uiStateCita.value.cita!!.clienteId,
                     uiStateCita.value.cita!!.mecanicoId
-                    )
+                )
             )
         }
     }
@@ -116,6 +116,34 @@ class CitasViewModel @Inject constructor(
                     )
             )
         }
+    }
+    fun eliminar(id:Int){
+        viewModelScope.launch {
+            citaRepository.deleteCitas(id)
+
+            citaRepository.gestCitas().onEach { result->
+                when(result){
+                    is Resource.Loading -> {
+                        uiState.update {
+                            it.copy(isLoading = true)
+                        }
+                    }
+
+                    is Resource.Success -> {
+                        uiState.update {
+                            it.copy(Cita = result.data ?: emptyList())
+                        }
+                    }
+
+                    is Resource.Error -> {
+                        uiState.update {
+                            it.copy(error = result.message ?: "Error desconocido")
+                        }
+                    }
+                }
+            }.launchIn(viewModelScope)
+        }
+
     }
 
 }

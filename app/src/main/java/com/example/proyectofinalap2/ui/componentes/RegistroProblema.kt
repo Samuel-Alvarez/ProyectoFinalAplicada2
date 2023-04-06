@@ -14,6 +14,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.proyectofinalap2.util.Screen
 import com.example.proyectofinalap2.view.MecanicoViewModel
+import com.example.proyectofinalap2.view.SolicitudesViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -78,8 +79,8 @@ fun RegistroProblema(navHostController: NavHostController, viewModel: MecanicoVi
                     }
                 )
                 OutlinedTextField(
-                    value = viewModel.nombres,
-                    onValueChange = { viewModel.nombres = it},
+                    value = "",
+                    onValueChange = { },
                     label = { Text(text = "Nombres Cliente") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
@@ -129,6 +130,18 @@ fun RegistroProblema(navHostController: NavHostController, viewModel: MecanicoVi
                     value = "",
                     onValueChange = { },
                     label = { Text(text = "Año vehiculo") },
+                    modifier = Modifier.fillMaxWidth(),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Subject,
+                            contentDescription = null
+                        )
+                    }
+                )
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = { },
+                    label = { Text(text = "Modelo vehiculo") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(

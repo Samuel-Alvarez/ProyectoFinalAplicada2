@@ -29,6 +29,16 @@ fun mecanicoListado(navHostController: NavHostController, viewModel: MecanicoVie
             TopAppBar(title = { Text(text = "Listado de Mecanicos") })
         },
 
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    navHostController.navigate(Screen.registroMecanicoNuevo.route)
+                },
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Nuevo")
+            }
+        },
+
         ){it
         val uiState by viewModel.uiState.collectAsState()
 
@@ -44,7 +54,7 @@ fun mecanicoListado(navHostController: NavHostController, viewModel: MecanicoVie
 
 @Composable
 fun MecanicoListBody(navHostController: NavHostController, mecanicoList: List<MecanicoDto>, Onclick : (MecanicoDto) -> Unit,
-                   viewModel: MecanicoViewModel = hiltViewModel()
+                     viewModel: MecanicoViewModel = hiltViewModel()
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         LazyColumn {
@@ -61,42 +71,41 @@ fun MecanicoRow(navHostController: NavHostController, mecanico: MecanicoDto, vie
         Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { navHostController.navigate(Screen.RegistroProblema.route + "/${mecanico.mecanicoId}") }
+            .clickable { navHostController.navigate(Screen.DashBoard.route + "/${mecanico.mecanicoId}") }
     ) {
 
-        Row(modifier = Modifier.fillMaxWidth().padding(8.dp)) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
 
-            Column(
+            Column() {
+                Text(text = mecanico.nombres)
+                Text(text = mecanico.area)
+                Text(text = mecanico.telefono)
+            }
 
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
             ) {
 
-                Row(
+                IconButton(
+                    onClick = {
 
-                ) {
-                    Text(
-                        text = mecanico.nombres,
-                        style = MaterialTheme.typography.titleLarge,
-                        modifier = Modifier.weight(3f)
-                    )
+                    }) {
+                    Icon(imageVector = Icons.Default.Edit, contentDescription = "edit")
                 }
 
-                Row(modifier = Modifier.fillMaxWidth()) {
-                    Text(
-                        text = mecanico.area,
-                    )
-
-                    Text(
-                        text = "",
-                        textAlign = TextAlign.End,
-                        modifier = Modifier.weight(2f)
-                    )
-
-                    ///
+                IconButton(
+                    onClick = {
+                        viewModel.eliminar(mecanico.mecanicoId)
+                    }) {
+                    Icon(imageVector = Icons.Default.Delete, contentDescription = "delete")
                 }
-
             }
         }
-
     }
     Divider(Modifier.fillMaxWidth())
 }

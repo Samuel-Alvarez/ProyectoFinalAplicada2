@@ -27,7 +27,7 @@ object AppModule {
     @Singleton
     fun provideTickets(moshi: Moshi): ProyectoFinalApi {
         return Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl("https://aplicada2api20230407141815.azurewebsites.net/")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
             .create(ProyectoFinalApi::class.java)

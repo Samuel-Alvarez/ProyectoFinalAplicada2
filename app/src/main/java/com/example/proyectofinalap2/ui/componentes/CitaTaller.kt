@@ -40,7 +40,7 @@ fun CitaTaller(navHostController: NavHostController, viewModel: CitasViewModel =
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text(text = "Cita Taller") })
+            TopAppBar(title = { Text(text = "Nueva Cita al taller") })
         },
 
         ) {

@@ -39,7 +39,7 @@ fun SolicitarMecanico(navHostController: NavHostController, viewModel: Solicitud
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text(text = "Solicitar Mecanico") })
+            TopAppBar(title = { Text(text = "Nueva Solicitud Mecanico") })
         },
 
         ) {

@@ -2,88 +2,104 @@ package com.example.proyectofinalap2.view.Cita
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.proyectofinalap2.data.remote.dto.CitaDto
+import com.example.proyectofinalap2.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConsultaCitasScreen(navHostController: NavHostController) {
+fun ConsultaCitasScreen(navHostController: NavHostController, viewModel: CitasViewModel = hiltViewModel()){
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Listado de Citas") },
-
-            )
+        topBar ={
+            TopAppBar(title = { Text(text = "Listado de Citas") })
         },
+
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-                navHostController.navigate("")
-            }) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = null)
+            FloatingActionButton(
+                onClick = {
+                    navHostController.navigate(Screen.CitaTaller.route)
+                },
+            ) {
+                Icon(imageVector = Icons.Default.Add, contentDescription = "Nuevo")
             }
         },
 
-    ) {it
+        ){it
+        val uiState by viewModel.uiState.collectAsState()
 
-        Column(
-            modifier = Modifier.padding(8.dp)
-                .fillMaxSize()
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(it)
         ) {
-            LazyColumn(modifier = Modifier.fillMaxSize()) {
-                /*items() {
+            CitaListBody(navHostController = navHostController, uiState.Cita, Onclick = {}, viewModel)
+        }
 
-                    Spacer(modifier = Modifier.height(5.dp))
-                    Divider(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .width(1.dp)
-                    )
-                    Spacer(modifier = Modifier.height(15.dp))
-                }*/
+    }
+}
+
+@Composable
+fun CitaListBody(navHostController: NavHostController, citaList: List<CitaDto>, Onclick : (CitaDto) -> Unit,
+                     viewModel: CitasViewModel = hiltViewModel()
+) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        LazyColumn {
+            items(citaList) { citas ->
+                CitaRow(navHostController = navHostController, citas, viewModel)
             }
         }
     }
-//    Row(modifier = Modifier.fillMaxWidth()){
-//        Text(
-//            text = cita.concepto,
-//        )
-//
-//        Text(
-//            text = "",
-//            textAlign = TextAlign.End,
-//            modifier = Modifier.weight(2f)
-//        )
-//
-//        Icon(
-//            imageVector = when (cita.estatus) {
-//                "Solicitado" -> {
-//                    Icons.Default.Star
-//                }
-//                "En espera" -> {
-//                    Icons.Default.Update
-//                }
-//                else -> {
-//                    Icons.Default.TaskAlt
-//
-//                }
-//            }, contentDescription = cita.estatus,
-//        )
-//
-//        IconButton(
-//            onClick = {
-//                CitasViewModel.eliminar(Int)
-//            },
-//            modifier = Modifier.align(alignment = Alignment.Bottom )
-//        ) {
-//            Icon(imageVector = Icons.Default.Delete, contentDescription = "delete")
-//        }
-//    }
+}
+
+@Composable
+fun CitaRow(navHostController: NavHostController, cita: CitaDto, viewModel: CitasViewModel = hiltViewModel()) {
+    Column(
+        Modifier
+            .fillMaxWidth()
+            .padding(8.dp)
+    ) {
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        ) {
+
+            Column() {
+                Text(text = cita.concepto)
+                Text(text = cita.fecha)
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End
+            ) {
+
+                IconButton(
+                    onClick = {
+
+                    }) {
+                    Icon(imageVector = Icons.Default.Edit, contentDescription = "edit")
+                }
+
+                IconButton(
+                    onClick = {
+                        viewModel.eliminar(cita.citaId)
+                    }) {
+                    Icon(imageVector = Icons.Default.Delete, contentDescription = "delete")
+                }
+            }
+        }
+    }
+    Divider(Modifier.fillMaxWidth())
 }

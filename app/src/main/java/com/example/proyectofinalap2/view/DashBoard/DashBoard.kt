@@ -5,18 +5,26 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.proyectofinalap2.util.Screen
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DashBoard(navHostController: NavHostController){
+fun DashBoard(navHostController: NavHostController, Id:Int, viewModel: MecanicoViewModel = hiltViewModel()){
+
+    remember {
+        viewModel.setMecanico(Id)
+        0
+    }
 
     val context = LocalContext.current
     Scaffold(
@@ -24,36 +32,35 @@ fun DashBoard(navHostController: NavHostController){
             TopAppBar(title = { Text(text = "Dashboard") })
         },
 
-    ) {
+        ) {
         it
         Column(
-
             modifier = Modifier
-                .fillMaxWidth().fillMaxHeight()
-                .padding(8.dp)
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .padding(8.dp, vertical = 80.dp)
         ) {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp)
-                    .padding(vertical = 5.dp),
+                    .height(100.dp)
+
             ) {
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(12.dp),
+                        .padding(12.dp, vertical = 20.dp),
                     verticalArrangement = Arrangement.SpaceEvenly
                 ) {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = Color(0xFFF04444)),
+                            .fillMaxWidth().padding(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
 
                         Text(
                             modifier = Modifier.padding(vertical = 5.dp),
-                            text = "$",
+                            text = viewModel.nombres,
                             style = MaterialTheme.typography.bodyMedium,
                             fontFamily = FontFamily.Monospace,
                             fontWeight = FontWeight.Bold,
@@ -61,7 +68,7 @@ fun DashBoard(navHostController: NavHostController){
 
                         Text(
                             modifier = Modifier.padding(vertical = 5.dp),
-                            text = "$",
+                            text = viewModel.area,
                             style = MaterialTheme.typography.bodyMedium,
                             fontFamily = FontFamily.Monospace,
                             fontWeight = FontWeight.Bold,
@@ -69,22 +76,12 @@ fun DashBoard(navHostController: NavHostController){
                     }
 
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = Color(0xFFC282DA)),
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(
                             modifier = Modifier.padding(vertical = 5.dp),
-                            text = "$",
-                            style = MaterialTheme.typography.bodyMedium,
-                            fontFamily = FontFamily.Monospace,
-                            fontWeight = FontWeight.Bold,
-                        )
-
-                        Text(
-                            modifier = Modifier.padding(vertical = 5.dp),
-                            text = "$",
+                            text = viewModel.telefono,
                             style = MaterialTheme.typography.bodyMedium,
                             fontFamily = FontFamily.Monospace,
                             fontWeight = FontWeight.Bold,
@@ -95,11 +92,13 @@ fun DashBoard(navHostController: NavHostController){
 
 
             Column(
-                modifier = Modifier.fillMaxWidth().fillMaxHeight(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
                 verticalArrangement = Arrangement.Bottom
             ) {
                 OutlinedButton(
-                    onClick = { navHostController.navigate("") },
+                    onClick = { navHostController.navigate(Screen.ConsultaCitasScreen.route) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = Color.Transparent),
@@ -111,7 +110,7 @@ fun DashBoard(navHostController: NavHostController){
                     )
                 }
                 OutlinedButton(
-                    onClick = { navHostController.navigate("") },
+                    onClick = { navHostController.navigate(Screen.ConsultasSolicitudesScreen.route) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = Color.Transparent),
@@ -123,7 +122,7 @@ fun DashBoard(navHostController: NavHostController){
                     )
                 }
                 OutlinedButton(
-                    onClick = { navHostController.navigate("") },
+                    onClick = { navHostController.navigate(Screen.ConsultasReportesScreen.route) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = Color.Transparent)

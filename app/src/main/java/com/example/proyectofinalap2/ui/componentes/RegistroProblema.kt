@@ -39,7 +39,7 @@ fun RegistroProblema(navHostController: NavHostController, viewModel: ReportesVi
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text(text = "Reportar Problema") })
+            TopAppBar(title = { Text(text = "Reportar Nuevo Problema") })
         },
 
         ) {

@@ -16,11 +16,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.proyectofinalap2.ui.componentes.CitaTaller
 import com.example.proyectofinalap2.ui.componentes.RegistroProblema
 import com.example.proyectofinalap2.ui.componentes.SolicitarMecanico
 import com.example.proyectofinalap2.ui.componentes.mecanicoListado
 import com.example.proyectofinalap2.ui.theme.ProyectoFinalAp2Theme
 import com.example.proyectofinalap2.util.Screen
+import com.example.proyectofinalap2.view.Cita.ConsultaCitasScreen
+import com.example.proyectofinalap2.view.DashBoard
+import com.example.proyectofinalap2.view.Mecanico.registroMecanicoNuevo
+import com.example.proyectofinalap2.view.Reporte.ConsultaReportesScreen
+import com.example.proyectofinalap2.view.Solicitud.ConsultaSolicitudesScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,18 +56,43 @@ fun myApp(){
             mecanicoListado(navHostController = navHostController)
         }
 
-        composable(Screen.RegistroProblema.route + "/{id}",
+        composable(Screen.registroMecanicoNuevo.route){
+            registroMecanicoNuevo(navHostController = navHostController)
+        }
+
+        composable(Screen.DashBoard.route + "/{id}",
             arguments = listOf(navArgument("id") {
                 type = NavType.IntType
             })
         ){
             Log.d("Args", it.arguments?.getInt("id").toString())
-            //RegistroProblema(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
+            DashBoard(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
+        }
+
+        composable(Screen.ConsultaCitasScreen.route){
+            ConsultaCitasScreen(navHostController = navHostController)
+        }
+
+        composable(Screen.ConsultasSolicitudesScreen.route){
+            ConsultaSolicitudesScreen(navHostController = navHostController)
+        }
+
+        composable(Screen.ConsultasReportesScreen.route){
+            ConsultaReportesScreen(navHostController = navHostController)
+        }
+
+        composable(Screen.CitaTaller.route){
+            CitaTaller(navHostController = navHostController)
+        }
+
+        composable(Screen.RegistroProblema.route){
+            RegistroProblema(navHostController = navHostController)
         }
 
         composable(Screen.SolicitarMecanico.route){
             SolicitarMecanico(navHostController = navHostController)
         }
+
     }
 }
 

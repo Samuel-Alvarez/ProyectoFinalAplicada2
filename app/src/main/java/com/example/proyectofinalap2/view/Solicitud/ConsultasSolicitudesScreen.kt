@@ -9,6 +9,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.Alignment
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,4 +51,39 @@ fun ConsultaSolicitudesScreen(navHostController: NavHostController) {
             }
         }
     }
+    //    Row(modifier = Modifier.fillMaxWidth()){
+//        Text(
+//            text = solicitud.concepto,
+//        )
+//
+//        Text(
+//            text = "",
+//            textAlign = TextAlign.End,
+//            modifier = Modifier.weight(2f)
+//        )
+//
+//        Icon(
+//            imageVector = when (solicitud.estatus) {
+//                "Solicitado" -> {
+//                    Icons.Default.Star
+//                }
+//                "En espera" -> {
+//                    Icons.Default.Update
+//                }
+//                else -> {
+//                    Icons.Default.TaskAlt
+//
+//                }
+//            }, contentDescription = solicitud.estatus,
+//        )
+//
+//        IconButton(
+//            onClick = {
+//                SolicitudesViewModel.eliminar(Int)
+//            },
+//            modifier = Modifier.align(alignment = Alignment.Bottom )
+//        ) {
+//            Icon(imageVector = Icons.Default.Delete, contentDescription = "delete")
+//        }
+//    }
 }

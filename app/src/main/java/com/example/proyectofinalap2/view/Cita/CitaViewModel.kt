@@ -28,6 +28,9 @@ class CitasViewModel @Inject constructor(
     private val citaRepository: CitasRepository
 ): ViewModel() {
 
+    val citasEstatus = listOf("Solicitado", "En espera", "Finalizado")
+    var expanded by mutableStateOf(false)
+
 
     var uiState = MutableStateFlow(CitaListState())
         private set

@@ -121,7 +121,6 @@ fun SolicitarMecanico(navHostController: NavHostController, viewModel: Solicitud
                     onClick = {
                         viewModel.guardar()
                         navHostController.navigate(Screen.mecanicoListado.route)
-
                     }
                 ) {
                     Icon(imageVector = Icons.Filled.Save, contentDescription = "Send")
@@ -133,4 +132,3 @@ fun SolicitarMecanico(navHostController: NavHostController, viewModel: Solicitud
             }
         }
     }
-}

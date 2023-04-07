@@ -9,6 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.Alignment
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -49,4 +52,40 @@ fun ConsultaReportesScreen(navHostController: NavHostController) {
             }
         }
     }
+
+    //    Row(modifier = Modifier.fillMaxWidth()){
+//        Text(
+//            text = reporte.concepto,
+//        )
+//
+//        Text(
+//            text = "",
+//            textAlign = TextAlign.End,
+//            modifier = Modifier.weight(2f)
+//        )
+//
+//        Icon(
+//            imageVector = when (reporte.estatus) {
+//                "Solicitado" -> {
+//                    Icons.Default.Star
+//                }
+//                "En espera" -> {
+//                    Icons.Default.Update
+//                }
+//                else -> {
+//                    Icons.Default.TaskAlt
+//
+//                }
+//            }, contentDescription = reporte.estatus,
+//        )
+//
+//        IconButton(
+//            onClick = {
+//                ReportesViewModel.eliminar(Int)
+//            },
+//            modifier = Modifier.align(alignment = Alignment.Bottom )
+//        ) {
+//            Icon(imageVector = Icons.Default.Delete, contentDescription = "delete")
+//        }
+//    }
 }

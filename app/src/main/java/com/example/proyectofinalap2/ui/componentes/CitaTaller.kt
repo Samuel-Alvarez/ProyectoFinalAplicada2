@@ -135,6 +135,7 @@ fun CitaTaller(navHostController: NavHostController, viewModel: CitasViewModel =
                         fontWeight = FontWeight.Black,
                     )
                 }
+
             }
         }
     }

@@ -16,10 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.proyectofinalap2.ui.componentes.CitaTaller
-import com.example.proyectofinalap2.ui.componentes.RegistroProblema
-import com.example.proyectofinalap2.ui.componentes.SolicitarMecanico
-import com.example.proyectofinalap2.ui.componentes.mecanicoListado
+import com.example.proyectofinalap2.ui.componentes.*
 import com.example.proyectofinalap2.ui.theme.ProyectoFinalAp2Theme
 import com.example.proyectofinalap2.util.Screen
 import com.example.proyectofinalap2.view.Cita.ConsultaCitasScreen
@@ -40,7 +37,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    myApp()
+                    Logo()
+                    //myApp()
                 }
             }
         }

@@ -24,7 +24,7 @@ import java.util.*
 @Composable
 fun SolicitarMecanico(navHostController: NavHostController, Id:Int, viewModel: SolicitudesViewModel = hiltViewModel()) {
     remember {
-        viewModel.solicitudId = Id
+        viewModel.mecanicoId = Id
         0
     }
     val calendar = Calendar.getInstance()

@@ -47,7 +47,11 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun myApp(){
     val navHostController = rememberNavController()
-    NavHost(navController = navHostController, startDestination = Screen.mecanicoListado.route) {
+    NavHost(navController = navHostController, startDestination = Screen.PantallaMecanico.route) {
+
+        composable(Screen.PantallaMecanico.route) {
+            PantallaMecanico(navHostController = navHostController)
+        }
 
         composable(Screen.mecanicoListado.route) {
             mecanicoListado(navHostController = navHostController)

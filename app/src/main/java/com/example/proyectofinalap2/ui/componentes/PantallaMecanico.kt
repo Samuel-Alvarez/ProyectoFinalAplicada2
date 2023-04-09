@@ -19,7 +19,7 @@ import com.example.proyectofinalap2.util.Screen
 
 
 @Composable
-fun PantallaMecanico() {
+fun PantallaMecanico(navHostController: NavHostController) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -35,7 +35,7 @@ fun PantallaMecanico() {
             modifier = Modifier.fillMaxHeight().padding(bottom = 100.dp)
         ) {
             Spacer(modifier = Modifier.weight(1f))
-            IniciarButton(onClick = { }
+            IniciarButton(onClick = { navHostController.navigate(Screen.mecanicoListado.route)}
             )
         }
     }
@@ -47,7 +47,7 @@ fun IniciarButton(onClick: () -> Unit) {
         onClick = onClick,
         modifier = Modifier.padding(top = 16.dp),
         shape = MaterialTheme.shapes.medium,
-        colors = buttonColors(Color(0xFB4D0E5E))
+        colors = buttonColors(Color(0xFB601275))
     ) {
         Text(text = "Iniciar", color = Color.White)
     }

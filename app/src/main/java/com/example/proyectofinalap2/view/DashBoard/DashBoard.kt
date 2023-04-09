@@ -22,7 +22,7 @@ import com.example.proyectofinalap2.util.Screen
 fun DashBoard(navHostController: NavHostController, Id:Int, viewModel: MecanicoViewModel = hiltViewModel()){
 
     remember {
-        viewModel.mecanicoId = Id
+        viewModel.setMecanico(Id)
         0
     }
 
@@ -98,7 +98,7 @@ fun DashBoard(navHostController: NavHostController, Id:Int, viewModel: MecanicoV
                 verticalArrangement = Arrangement.Bottom
             ) {
                 OutlinedButton(
-                    onClick = { navHostController.navigate(Screen.ConsultaCitasScreen.route) },
+                    onClick = { navHostController.navigate(Screen.ConsultaCitasScreen.route +"/${Id}") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = Color.Transparent),
@@ -110,7 +110,7 @@ fun DashBoard(navHostController: NavHostController, Id:Int, viewModel: MecanicoV
                     )
                 }
                 OutlinedButton(
-                    onClick = { navHostController.navigate(Screen.ConsultaSolicitudesScreen.route) },
+                    onClick = { navHostController.navigate(Screen.ConsultaSolicitudesScreen.route +"/${Id}") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = Color.Transparent),
@@ -122,7 +122,7 @@ fun DashBoard(navHostController: NavHostController, Id:Int, viewModel: MecanicoV
                     )
                 }
                 OutlinedButton(
-                    onClick = { navHostController.navigate(Screen.ConsultaReportesScreen.route) },
+                    onClick = { navHostController.navigate(Screen.ConsultaReportesScreen.route +"/${Id}") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = Color.Transparent)

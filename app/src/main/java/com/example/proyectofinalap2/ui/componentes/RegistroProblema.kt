@@ -24,7 +24,7 @@ import java.util.*
 @Composable
 fun RegistroProblema(navHostController: NavHostController, Id: Int, viewModel: ReportesViewModel = hiltViewModel()) {
     remember {
-        viewModel.reporteId = Id
+        viewModel.mecanicoId = Id
         0
     }
     val calendar = Calendar.getInstance()

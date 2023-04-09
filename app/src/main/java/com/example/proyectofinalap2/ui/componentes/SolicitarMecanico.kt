@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -21,7 +22,11 @@ import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SolicitarMecanico(navHostController: NavHostController, viewModel: SolicitudesViewModel = hiltViewModel()) {
+fun SolicitarMecanico(navHostController: NavHostController, Id:Int, viewModel: SolicitudesViewModel = hiltViewModel()) {
+    remember {
+        viewModel.solicitudId = Id
+        0
+    }
     val calendar = Calendar.getInstance()
     val year = calendar.get(Calendar.YEAR)
     val month = calendar.get(Calendar.MONTH)
@@ -91,7 +96,7 @@ fun SolicitarMecanico(navHostController: NavHostController, viewModel: Solicitud
             )
             OutlinedTextField(
                 value = "",
-                onValueChange = {viewModel.mecanicoId},
+                onValueChange = {viewModel.mecanicoId.toString()},
                 label = { Text(text = "Id Mecanico") },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
@@ -120,7 +125,7 @@ fun SolicitarMecanico(navHostController: NavHostController, viewModel: Solicitud
                         .padding(15.dp),
                     onClick = {
                         viewModel.guardar()
-                        navHostController.navigate(Screen.mecanicoListado.route)
+                        navHostController.navigate(Screen.mecanicoListado.route +"/${Id}")
                     }
                 ) {
                     Icon(imageVector = Icons.Filled.Save, contentDescription = "Send")

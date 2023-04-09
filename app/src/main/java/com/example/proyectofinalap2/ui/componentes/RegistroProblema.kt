@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -21,7 +22,11 @@ import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegistroProblema(navHostController: NavHostController, viewModel: ReportesViewModel = hiltViewModel()) {
+fun RegistroProblema(navHostController: NavHostController, Id: Int, viewModel: ReportesViewModel = hiltViewModel()) {
+    remember {
+        viewModel.reporteId = Id
+        0
+    }
     val calendar = Calendar.getInstance()
     val year = calendar.get(Calendar.YEAR)
     val month = calendar.get(Calendar.MONTH)
@@ -97,7 +102,7 @@ fun RegistroProblema(navHostController: NavHostController, viewModel: ReportesVi
                 )
                 OutlinedTextField(
                     value = "",
-                    onValueChange = {viewModel.mecanicoId},
+                    onValueChange = {viewModel.mecanicoId.toString()},
                     label = { Text(text = "Id Mecanico") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
@@ -126,7 +131,7 @@ fun RegistroProblema(navHostController: NavHostController, viewModel: ReportesVi
                         .padding(15.dp),
                     onClick = {
                         viewModel.guardar()
-                        navHostController.navigate(Screen.mecanicoListado.route)
+                        navHostController.navigate(Screen.mecanicoListado.route + "/${Id}")
 
                     }
                 ) {

@@ -22,7 +22,7 @@ import com.example.proyectofinalap2.util.Screen
 fun DashBoard(navHostController: NavHostController, Id:Int, viewModel: MecanicoViewModel = hiltViewModel()){
 
     remember {
-        viewModel.setMecanico(Id)
+        viewModel.mecanicoId = Id
         0
     }
 
@@ -110,7 +110,7 @@ fun DashBoard(navHostController: NavHostController, Id:Int, viewModel: MecanicoV
                     )
                 }
                 OutlinedButton(
-                    onClick = { navHostController.navigate(Screen.ConsultasSolicitudesScreen.route) },
+                    onClick = { navHostController.navigate(Screen.ConsultaSolicitudesScreen.route) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = Color.Transparent),
@@ -122,7 +122,7 @@ fun DashBoard(navHostController: NavHostController, Id:Int, viewModel: MecanicoV
                     )
                 }
                 OutlinedButton(
-                    onClick = { navHostController.navigate(Screen.ConsultasReportesScreen.route) },
+                    onClick = { navHostController.navigate(Screen.ConsultaReportesScreen.route) },
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(color = Color.Transparent)

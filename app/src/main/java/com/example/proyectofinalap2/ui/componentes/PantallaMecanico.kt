@@ -14,11 +14,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-
+import androidx.navigation.NavHostController
+import com.example.proyectofinalap2.util.Screen
 
 
 @Composable
-fun pantallaMecanico() {
+fun PantallaMecanico() {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -34,7 +35,8 @@ fun pantallaMecanico() {
             modifier = Modifier.fillMaxHeight().padding(bottom = 100.dp)
         ) {
             Spacer(modifier = Modifier.weight(1f))
-            IniciarButton(onClick = { /* Acción a ejecutar */ })
+            IniciarButton(onClick = { }
+            )
         }
     }
 }
@@ -45,8 +47,8 @@ fun IniciarButton(onClick: () -> Unit) {
         onClick = onClick,
         modifier = Modifier.padding(top = 16.dp),
         shape = MaterialTheme.shapes.medium,
-        colors = buttonColors(Color(0xFFB500F61))
+        colors = buttonColors(Color(0xFB4D0E5E))
     ) {
-        Text(text = "Iniciar", color = Color.Black)
+        Text(text = "Iniciar", color = Color.White)
     }
 }

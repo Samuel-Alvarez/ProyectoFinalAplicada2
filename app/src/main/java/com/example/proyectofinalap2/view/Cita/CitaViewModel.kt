@@ -31,7 +31,6 @@ class CitasViewModel @Inject constructor(
     val citasEstatus = listOf("Solicitado", "En espera", "Finalizado")
     var expanded by mutableStateOf(false)
 
-
     var uiState = MutableStateFlow(CitaListState())
         private set
 
@@ -113,8 +112,8 @@ class CitasViewModel @Inject constructor(
                     citaId =0,
                     concepto = concepto,
                     fecha = fecha,
-                    clienteId = 0,
-                    mecanicoId = 0,
+                    clienteId = citaId,
+                    mecanicoId = mecanicoId,
 
                     )
             )

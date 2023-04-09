@@ -8,6 +8,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -22,7 +23,13 @@ import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CitaTaller(navHostController: NavHostController, viewModel: CitasViewModel = hiltViewModel()) {
+fun CitaTaller(navHostController: NavHostController, Id:Int, viewModel: CitasViewModel = hiltViewModel()) {
+
+    remember {
+        viewModel.mecanicoId = Id
+        0
+    }
+
     val calendar = Calendar.getInstance()
     val year = calendar.get(Calendar.YEAR)
     val month = calendar.get(Calendar.MONTH)
@@ -96,7 +103,7 @@ fun CitaTaller(navHostController: NavHostController, viewModel: CitasViewModel =
                     }
                 )
                 OutlinedTextField(
-                    value = "",
+                    value = viewModel.mecanicoId.toString(),
                     onValueChange = {viewModel.mecanicoId},
                     label = { Text(text = "Id Mecanico") },
                     modifier = Modifier.fillMaxWidth(),
@@ -126,7 +133,7 @@ fun CitaTaller(navHostController: NavHostController, viewModel: CitasViewModel =
                         .padding(15.dp),
                     onClick = {
                         viewModel.guardar()
-                        navHostController.navigate(Screen.mecanicoListado.route)
+                        navHostController.navigate(Screen.ConsultaCitasScreen.route +"/${Id}")
                     }
                 ) {
                     Icon(imageVector = Icons.Filled.Save, contentDescription = "Send")

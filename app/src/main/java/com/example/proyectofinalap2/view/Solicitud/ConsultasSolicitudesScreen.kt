@@ -12,6 +12,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -22,7 +23,8 @@ import com.example.proyectofinalap2.view.SolicitudesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConsultaSolicitudesScreen(navHostController: NavHostController, viewModel: SolicitudesViewModel = hiltViewModel()){
+fun ConsultaSolicitudesScreen(navHostController: NavHostController, Id:Int, viewModel: SolicitudesViewModel = hiltViewModel()){
+
 
     Scaffold(
         topBar ={
@@ -32,7 +34,7 @@ fun ConsultaSolicitudesScreen(navHostController: NavHostController, viewModel: S
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navHostController.navigate(Screen.SolicitarMecanico.route)
+                    navHostController.navigate(Screen.SolicitarMecanico.route + "/${Id}")
                 },
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Nuevo")

@@ -29,7 +29,6 @@ class SolicitudesViewModel @Inject constructor(
     private val solicitudesRepository: SolicitudesRepository
 ): ViewModel() {
 
-
     var uiState = MutableStateFlow(SolicitudListState())
         private set
 
@@ -45,6 +44,30 @@ class SolicitudesViewModel @Inject constructor(
 
     private var _state = mutableStateOf(SolicitudListState())
     val state: State<SolicitudListState> = _state
+
+    init {
+        solicitudesRepository.gestSolicitudes().onEach { result->
+            when(result){
+                is Resource.Loading -> {
+                    uiState.update {
+                        it.copy(isLoading = true)
+                    }
+                }
+
+                is Resource.Success -> {
+                    uiState.update {
+                        it.copy(Solicitud = result.data ?: emptyList())
+                    }
+                }
+
+                is Resource.Error -> {
+                    uiState.update {
+                        it.copy(error = result.message ?: "Error desconocido")
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
     
 
     fun setSolicitud(id:Int){
@@ -74,7 +97,7 @@ class SolicitudesViewModel @Inject constructor(
                 SolicitudDto(
                     solicitudId = solicitudId.toInt(),
                     concepto = concepto,
-                    uiStateSolicitud.value.solicitud!!.fecha,
+                    fecha = fecha,
                     uiStateSolicitud.value.solicitud!!.clienteId,
                     uiStateSolicitud.value.solicitud!!.mecanicoId
                 )
@@ -86,8 +109,8 @@ class SolicitudesViewModel @Inject constructor(
         viewModelScope.launch {
             solicitudesRepository.postSolicitudes(
                 SolicitudDto(
-                    mecanicoId = 0,
-                    clienteId = 0,
+                    mecanicoId = mecanicoId,
+                    clienteId = 1,
                     solicitudId = 0,
                     concepto = concepto,
                     fecha = fecha

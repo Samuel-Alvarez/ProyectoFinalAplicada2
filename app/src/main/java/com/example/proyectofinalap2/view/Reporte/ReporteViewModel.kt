@@ -50,6 +50,30 @@ class ReportesViewModel @Inject constructor(
     private var _state = mutableStateOf(ReporteListStates())
     val state: State<ReporteListStates> = _state
 
+    init {
+        reportesRepository.gestReportes().onEach { result->
+            when(result){
+                is Resource.Loading -> {
+                    uiState.update {
+                        it.copy(isLoading = true)
+                    }
+                }
+
+                is Resource.Success -> {
+                    uiState.update {
+                        it.copy(Reporte = result.data ?: emptyList())
+                    }
+                }
+
+                is Resource.Error -> {
+                    uiState.update {
+                        it.copy(error = result.message ?: "Error desconocido")
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
 
     fun setReporte(id:Int){
         reporteId = id
@@ -90,8 +114,8 @@ class ReportesViewModel @Inject constructor(
         viewModelScope.launch {
             reportesRepository.postReportes(
                 ReporteDto(
-                    mecanicoId = 0,
-                    clienteId = 0,
+                    mecanicoId =mecanicoId,
+                    clienteId = 1,
                     reporteId = 0,
                     concepto = concepto,
                     fecha = fecha

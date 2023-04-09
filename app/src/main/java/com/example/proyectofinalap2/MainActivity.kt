@@ -62,32 +62,55 @@ fun myApp(){
                 type = NavType.IntType
             })
         ){
-            Log.d("Args", it.arguments?.getInt("id").toString())
             DashBoard(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
         }
 
-        composable(Screen.ConsultaCitasScreen.route){
-            ConsultaCitasScreen(navHostController = navHostController)
+        composable(Screen.ConsultaCitasScreen.route + "/{id}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.IntType
+            })
+        ){
+            ConsultaCitasScreen(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
         }
 
-        composable(Screen.ConsultasSolicitudesScreen.route){
-            ConsultaSolicitudesScreen(navHostController = navHostController)
+        composable(Screen.ConsultaSolicitudesScreen.route + "/{id}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.IntType
+            })
+        ){
+            ConsultaSolicitudesScreen(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
         }
 
-        composable(Screen.ConsultasReportesScreen.route){
-            ConsultaReportesScreen(navHostController = navHostController)
+        composable(Screen.ConsultaReportesScreen.route + "/{id}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.IntType
+            })
+        ){
+            ConsultaReportesScreen(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
         }
 
-        composable(Screen.CitaTaller.route){
-            CitaTaller(navHostController = navHostController)
+        composable(Screen.CitaTaller.route + "/{id}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.IntType
+            })
+        ){
+            CitaTaller(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
         }
 
-        composable(Screen.RegistroProblema.route){
-            RegistroProblema(navHostController = navHostController)
+        composable(Screen.RegistroProblema.route + "/{id}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.IntType
+            })
+        ){
+            RegistroProblema(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
         }
 
-        composable(Screen.SolicitarMecanico.route){
-            SolicitarMecanico(navHostController = navHostController)
+        composable(Screen.SolicitarMecanico.route + "/{id}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.IntType
+            })
+        ){
+            SolicitarMecanico(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
         }
 
     }

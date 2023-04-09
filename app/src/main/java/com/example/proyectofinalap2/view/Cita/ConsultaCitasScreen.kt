@@ -9,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -18,7 +19,7 @@ import com.example.proyectofinalap2.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConsultaCitasScreen(navHostController: NavHostController, viewModel: CitasViewModel = hiltViewModel()){
+fun ConsultaCitasScreen(navHostController: NavHostController, Id:Int, viewModel: CitasViewModel = hiltViewModel()){
 
     Scaffold(
         topBar ={
@@ -28,7 +29,7 @@ fun ConsultaCitasScreen(navHostController: NavHostController, viewModel: CitasVi
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navHostController.navigate(Screen.CitaTaller.route)
+                    navHostController.navigate(Screen.CitaTaller.route + "/${Id}")
                 },
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Nuevo")
@@ -50,7 +51,7 @@ fun ConsultaCitasScreen(navHostController: NavHostController, viewModel: CitasVi
 
 @Composable
 fun CitaListBody(navHostController: NavHostController, citaList: List<CitaDto>, Onclick : (CitaDto) -> Unit,
-                     viewModel: CitasViewModel = hiltViewModel()
+                 viewModel: CitasViewModel = hiltViewModel()
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         LazyColumn {

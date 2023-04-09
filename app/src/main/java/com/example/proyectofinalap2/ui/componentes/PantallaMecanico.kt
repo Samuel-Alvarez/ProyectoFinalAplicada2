@@ -32,7 +32,7 @@ fun PantallaMecanico(navHostController: NavHostController) {
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxHeight().padding(bottom = 100.dp)
+            modifier = Modifier.fillMaxHeight().padding(bottom = 175.dp)
         ) {
             Spacer(modifier = Modifier.weight(1f))
             IniciarButton(onClick = { navHostController.navigate(Screen.mecanicoListado.route)}

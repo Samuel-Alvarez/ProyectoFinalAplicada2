@@ -93,6 +93,7 @@ fun MecanicoRow(navHostController: NavHostController, mecanico: MecanicoDto, vie
 
                 IconButton(
                     onClick = {
+                        navHostController.navigate(Screen.editarMecanico.route + "/${mecanico.mecanicoId}")
 
                     }) {
                     Icon(imageVector = Icons.Default.Edit, contentDescription = "edit")

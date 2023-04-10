@@ -20,9 +20,10 @@ import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun editarReporte(navHostController: NavHostController, Id: Int, viewModel: ReportesViewModel = hiltViewModel()) {
+fun editarReporte(navHostController: NavHostController, Id: Int, mecanicoId:Int, viewModel: ReportesViewModel = hiltViewModel()) {
     remember {
-        viewModel.mecanicoId = Id
+        viewModel.mecanicoId = mecanicoId
+        viewModel.setReporte(Id)
         0
     }
     val calendar = Calendar.getInstance()
@@ -99,13 +100,13 @@ fun editarReporte(navHostController: NavHostController, Id: Int, viewModel: Repo
                     }
                 )
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {viewModel.mecanicoId.toString()},
+                    value = viewModel.mecanicoId.toString(),
+                    onValueChange = {viewModel.mecanicoId},
                     label = { Text(text = "Id Mecanico") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Default.Subject,
+                            imageVector = Icons.Default.Person,
                             contentDescription = null
                         )
                     }
@@ -117,7 +118,7 @@ fun editarReporte(navHostController: NavHostController, Id: Int, viewModel: Repo
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Default.Subject,
+                            imageVector = Icons.Default.Person,
                             contentDescription = null
                         )
                     }

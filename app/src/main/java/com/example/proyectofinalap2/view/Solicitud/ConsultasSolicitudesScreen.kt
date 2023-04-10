@@ -93,7 +93,7 @@ fun SolicitudRow(navHostController: NavHostController, solicitud: SolicitudDto, 
 
                 IconButton(
                     onClick = {
-                        navHostController.navigate(Screen.editarSolicitud.route)
+                        navHostController.navigate(Screen.editarSolicitud.route +"/${solicitud.solicitudId}/${solicitud.mecanicoId}")
                     }) {
                     Icon(imageVector = Icons.Default.Edit, contentDescription = "edit")
                 }

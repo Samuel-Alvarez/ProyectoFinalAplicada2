@@ -101,7 +101,7 @@ class MecanicoViewModel @Inject constructor(
                     nombres = nombres,
                     area = area,
                     telefono = telefono,
-                    disponible = disponible,
+                    uiStateMecanico.value.mecanico!!.disponible
                 )
             )
         }

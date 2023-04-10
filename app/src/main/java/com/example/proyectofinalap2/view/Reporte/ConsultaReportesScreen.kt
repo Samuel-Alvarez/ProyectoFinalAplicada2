@@ -92,7 +92,7 @@ fun ReporteRow(navHostController: NavHostController, reporte: ReporteDto, viewMo
 
                 IconButton(
                     onClick = {
-                        navHostController.navigate(Screen.editarReporte.route)
+                        navHostController.navigate(Screen.editarReporte.route + "/${reporte.reporteId}/${reporte.mecanicoId}")
                     }) {
                     Icon(imageVector = Icons.Default.Edit, contentDescription = "edit")
                 }

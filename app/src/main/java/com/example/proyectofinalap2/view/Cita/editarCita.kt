@@ -5,10 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CalendarMonth
-import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.icons.filled.Save
-import androidx.compose.material.icons.filled.Subject
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -24,10 +21,11 @@ import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun editarCita(navHostController: NavHostController, Id:Int, viewModel: CitasViewModel = hiltViewModel()) {
+fun editarCita(navHostController: NavHostController, Id:Int, mecanicoId: Int, viewModel: CitasViewModel = hiltViewModel()) {
 
     remember {
-        viewModel.mecanicoId = Id
+        viewModel.mecanicoId = mecanicoId
+        viewModel.setCita(Id)
         0
     }
 
@@ -110,7 +108,7 @@ fun editarCita(navHostController: NavHostController, Id:Int, viewModel: CitasVie
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Default.Subject,
+                            imageVector = Icons.Default.Person,
                             contentDescription = null
                         )
                     }
@@ -122,7 +120,7 @@ fun editarCita(navHostController: NavHostController, Id:Int, viewModel: CitasVie
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Default.Subject,
+                            imageVector = Icons.Default.Person,
                             contentDescription = null
                         )
                     }

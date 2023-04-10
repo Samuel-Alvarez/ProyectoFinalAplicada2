@@ -109,7 +109,7 @@ fun CitaTaller(navHostController: NavHostController, Id:Int, viewModel: CitasVie
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Default.Subject,
+                            imageVector = Icons.Default.Person,
                             contentDescription = null
                         )
                     }
@@ -121,7 +121,7 @@ fun CitaTaller(navHostController: NavHostController, Id:Int, viewModel: CitasVie
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Default.Subject,
+                            imageVector = Icons.Default.Person,
                             contentDescription = null
                         )
                     }

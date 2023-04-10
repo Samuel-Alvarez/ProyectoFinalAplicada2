@@ -101,13 +101,13 @@ fun RegistroProblema(navHostController: NavHostController, Id: Int, viewModel: R
                     }
                 )
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {viewModel.mecanicoId.toString()},
+                    value = viewModel.mecanicoId.toString(),
+                    onValueChange = {viewModel.mecanicoId},
                     label = { Text(text = "Id Mecanico") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Default.Subject,
+                            imageVector = Icons.Default.Person,
                             contentDescription = null
                         )
                     }
@@ -119,7 +119,7 @@ fun RegistroProblema(navHostController: NavHostController, Id: Int, viewModel: R
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {
                         Icon(
-                            imageVector = Icons.Default.Subject,
+                            imageVector = Icons.Default.Person,
                             contentDescription = null
                         )
                     }
@@ -131,7 +131,7 @@ fun RegistroProblema(navHostController: NavHostController, Id: Int, viewModel: R
                         .padding(15.dp),
                     onClick = {
                         viewModel.guardar()
-                        navHostController.navigate(Screen.mecanicoListado.route + "/${Id}")
+                        navHostController.navigate(Screen.ConsultaReportesScreen.route + "/${Id}")
 
                     }
                 ) {

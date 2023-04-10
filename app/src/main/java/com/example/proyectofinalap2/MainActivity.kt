@@ -20,10 +20,14 @@ import com.example.proyectofinalap2.ui.componentes.*
 import com.example.proyectofinalap2.ui.theme.ProyectoFinalAp2Theme
 import com.example.proyectofinalap2.util.Screen
 import com.example.proyectofinalap2.view.Cita.ConsultaCitasScreen
+import com.example.proyectofinalap2.view.Cita.editarCita
 import com.example.proyectofinalap2.view.DashBoard
+import com.example.proyectofinalap2.view.Mecanico.editarMecanico
 import com.example.proyectofinalap2.view.Mecanico.registroMecanicoNuevo
 import com.example.proyectofinalap2.view.Reporte.ConsultaReportesScreen
+import com.example.proyectofinalap2.view.Reporte.editarReporte
 import com.example.proyectofinalap2.view.Solicitud.ConsultaSolicitudesScreen
+import com.example.proyectofinalap2.view.Solicitud.editarSolicitud
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -117,6 +121,58 @@ fun myApp(){
             SolicitarMecanico(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
         }
 
+        composable(Screen.editarMecanico.route + "/{id}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.IntType
+            })
+        ){
+            editarMecanico(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
+        }
+
+        composable(Screen.editarCita.route + "/{id}/{mecanicoId}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.IntType
+            },
+                navArgument(name = "mecanicoId"){
+                    type = NavType.IntType
+                }
+            )
+        ){
+            editarCita(navHostController = navHostController,
+                Id = it.arguments?.getInt("id")?: 0,
+                mecanicoId = it.arguments?.getInt("mecanicoId")?: 0
+            )
+        }
+
+        composable(Screen.editarSolicitud.route + "/{id}/{mecanicoId}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.IntType
+            },
+                navArgument(name = "mecanicoId"){
+                    type = NavType.IntType
+                }
+            )
+        ){
+            editarSolicitud(navHostController = navHostController,
+                Id = it.arguments?.getInt("id")?: 0,
+                mecanicoId = it.arguments?.getInt("mecanicoId")?: 0
+            )
+        }
+
+        composable(Screen.editarReporte.route + "/{id}/{mecanicoId}",
+            arguments = listOf(navArgument("id") {
+                type = NavType.IntType
+            },
+                navArgument(name = "mecanicoId"){
+                    type = NavType.IntType
+                }
+            )
+        ){
+            editarReporte(navHostController = navHostController,
+                Id = it.arguments?.getInt("id")?: 0,
+                mecanicoId = it.arguments?.getInt("mecanicoId")?: 0
+            )
+        }
     }
 }
 

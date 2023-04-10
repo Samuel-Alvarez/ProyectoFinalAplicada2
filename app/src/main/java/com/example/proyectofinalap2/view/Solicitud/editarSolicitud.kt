@@ -5,10 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CalendarMonth
-import androidx.compose.material.icons.filled.CalendarToday
-import androidx.compose.material.icons.filled.Save
-import androidx.compose.material.icons.filled.Subject
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -24,9 +21,10 @@ import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun editarSolicitud(navHostController: NavHostController, Id:Int, viewModel: SolicitudesViewModel = hiltViewModel()) {
+fun editarSolicitud(navHostController: NavHostController, Id:Int, mecanicoId: Int, viewModel: SolicitudesViewModel = hiltViewModel()) {
     remember {
-        viewModel.mecanicoId = Id
+        viewModel.mecanicoId = mecanicoId
+        viewModel.setSolicitud(Id)
         0
     }
     val calendar = Calendar.getInstance()
@@ -38,10 +36,10 @@ fun editarSolicitud(navHostController: NavHostController, Id:Int, viewModel: Sol
 
 
     val date = DatePickerDialog(
-        contexto, {d, year, month, day->
+        contexto, { d, year, month, day ->
             val month = month + 1
             viewModel.fecha = "$year-$month-$day"
-        },year, month, day
+        }, year, month, day
     )
 
     Scaffold(
@@ -58,83 +56,90 @@ fun editarSolicitud(navHostController: NavHostController, Id:Int, viewModel: Sol
                 .padding(8.dp)
 
         ) {
-
-            OutlinedTextField(
-                value = viewModel.fecha,
-                onValueChange = {viewModel.fecha = it},
-                modifier = Modifier.fillMaxWidth(),
-                label = { Text(text = "Fecha") },
-                readOnly = true,
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.CalendarMonth,
-                        contentDescription = "",
-                    )
-                },
-
-                trailingIcon = {
-                    IconButton(
-                        onClick = { date.show() }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.CalendarToday,
-                            contentDescription = "",
-                        )
-                    }
-                }
-
-            )
-            OutlinedTextField(
-                value = viewModel.concepto,
-                onValueChange = { viewModel.concepto = it},
-                label = { Text(text = "Concepto Problema") },
-                modifier = Modifier.fillMaxWidth(),
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Subject,
-                        contentDescription = null
-                    )
-                }
-            )
-            OutlinedTextField(
-                value = "",
-                onValueChange = {viewModel.mecanicoId.toString()},
-                label = { Text(text = "Id Mecanico") },
-                modifier = Modifier.fillMaxWidth(),
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Subject,
-                        contentDescription = null
-                    )
-                }
-            )
-            OutlinedTextField(
-                value = "",
-                onValueChange = {viewModel.clienteId},
-                label = { Text(text = "Id Cliente") },
-                modifier = Modifier.fillMaxWidth(),
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Subject,
-                        contentDescription = null
-                    )
-                }
-            )
-
-            Button(
+            Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(15.dp),
-                onClick = {
-                    viewModel.modificar()
-                    navHostController.navigate(Screen.ConsultaSolicitudesScreen.route +"/${Id}")
-                }
+                    .padding(8.dp, vertical = 60.dp),
             ) {
-                Icon(imageVector = Icons.Filled.Save, contentDescription = "Send")
-                Text(
-                    text = "Solicitar",
-                    fontWeight = FontWeight.Black,
+
+
+                OutlinedTextField(
+                    value = viewModel.fecha,
+                    onValueChange = { viewModel.fecha = it },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text(text = "Fecha") },
+                    readOnly = true,
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.CalendarMonth,
+                            contentDescription = "",
+                        )
+                    },
+
+                    trailingIcon = {
+                        IconButton(
+                            onClick = { date.show() }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.CalendarToday,
+                                contentDescription = "",
+                            )
+                        }
+                    }
+
                 )
+                OutlinedTextField(
+                    value = viewModel.concepto,
+                    onValueChange = { viewModel.concepto = it },
+                    label = { Text(text = "Concepto Problema") },
+                    modifier = Modifier.fillMaxWidth(),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Subject,
+                            contentDescription = null
+                        )
+                    }
+                )
+                OutlinedTextField(
+                    value = viewModel.mecanicoId.toString(),
+                    onValueChange = { viewModel.mecanicoId },
+                    label = { Text(text = "Id Mecanico") },
+                    modifier = Modifier.fillMaxWidth(),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Person,
+                            contentDescription = null
+                        )
+                    }
+                )
+                OutlinedTextField(
+                    value = "",
+                    onValueChange = { viewModel.clienteId },
+                    label = { Text(text = "Id Cliente") },
+                    modifier = Modifier.fillMaxWidth(),
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.Person,
+                            contentDescription = null
+                        )
+                    }
+                )
+
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(15.dp),
+                    onClick = {
+                        viewModel.modificar()
+                        navHostController.navigate(Screen.ConsultaSolicitudesScreen.route + "/${Id}")
+                    }
+                ) {
+                    Icon(imageVector = Icons.Filled.Save, contentDescription = "Send")
+                    Text(
+                        text = "Solicitar",
+                        fontWeight = FontWeight.Black,
+                    )
+                }
             }
         }
     }

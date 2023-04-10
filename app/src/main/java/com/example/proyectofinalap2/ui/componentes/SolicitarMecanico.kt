@@ -53,7 +53,7 @@ fun SolicitarMecanico(navHostController: NavHostController, Id:Int, viewModel: S
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(8.dp, vertical = 70.dp )
 
         ) {
 
@@ -95,13 +95,13 @@ fun SolicitarMecanico(navHostController: NavHostController, Id:Int, viewModel: S
                 }
             )
             OutlinedTextField(
-                value = "",
-                onValueChange = {viewModel.mecanicoId.toString()},
+                value = viewModel.mecanicoId.toString(),
+                onValueChange = {viewModel.mecanicoId},
                 label = { Text(text = "Id Mecanico") },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Default.Subject,
+                        imageVector = Icons.Default.Person,
                         contentDescription = null
                     )
                 }
@@ -113,7 +113,7 @@ fun SolicitarMecanico(navHostController: NavHostController, Id:Int, viewModel: S
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Default.Subject,
+                        imageVector = Icons.Default.Person,
                         contentDescription = null
                     )
                 }
@@ -125,7 +125,7 @@ fun SolicitarMecanico(navHostController: NavHostController, Id:Int, viewModel: S
                         .padding(15.dp),
                     onClick = {
                         viewModel.guardar()
-                        navHostController.navigate(Screen.mecanicoListado.route +"/${Id}")
+                        navHostController.navigate(Screen.ConsultaSolicitudesScreen.route +"/${Id}")
                     }
                 ) {
                     Icon(imageVector = Icons.Filled.Save, contentDescription = "Send")

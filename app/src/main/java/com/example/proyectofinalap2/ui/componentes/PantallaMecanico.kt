@@ -46,8 +46,8 @@ fun IniciarButton(onClick: () -> Unit) {
     Button(
         onClick = onClick,
         modifier = Modifier.padding(top = 16.dp),
-        shape = MaterialTheme.shapes.medium,
-        colors = buttonColors(Color(0xFB601275))
+        shape = MaterialTheme.shapes.large,
+        colors = buttonColors(Color(0xFB6C1C81))
     ) {
         Text(text = "Iniciar", color = Color.White)
     }

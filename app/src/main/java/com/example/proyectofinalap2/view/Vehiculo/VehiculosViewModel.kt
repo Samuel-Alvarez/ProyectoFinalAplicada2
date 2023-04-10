@@ -46,6 +46,30 @@ class VehiculosViewModel @Inject constructor(
     private var _state = mutableStateOf(VehichuloListState())
     val state: State<VehichuloListState> = _state
 
+    init {
+        vehiculoRepository.gestVehiculos().onEach { result->
+            when(result){
+                is Resource.Loading -> {
+                    uiState.update {
+                        it.copy(isLoading = true)
+                    }
+                }
+
+                is Resource.Success -> {
+                    uiState.update {
+                        it.copy(Vehiculo = result.data ?: emptyList())
+                    }
+                }
+
+                is Resource.Error -> {
+                    uiState.update {
+                        it.copy(error = result.message ?: "Error desconocido")
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
+    }
+
 
     fun setVehiculo(id:Int){
         vehiculoId = id

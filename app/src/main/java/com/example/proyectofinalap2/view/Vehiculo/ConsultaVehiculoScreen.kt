@@ -1,39 +1,38 @@
-package com.example.proyectofinalap2.view.Reporte
+package com.example.proyectofinalap2.view.Vehiculo
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.proyectofinalap2.data.remote.dto.ReporteDto
+import androidx.navigation.NavHostController
+import com.example.proyectofinalap2.data.remote.dto.ClienteDto
+import com.example.proyectofinalap2.data.remote.dto.VehiculoDto
 import com.example.proyectofinalap2.util.Screen
-
-
+import com.example.proyectofinalap2.view.ClienteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ConsultaReportesScreen(navHostController: NavHostController, Id: Int, viewModel: ReportesViewModel = hiltViewModel()){
+fun ConsultaVehiculoScreen(navHostController: NavHostController, viewModel: VehiculosViewModel = hiltViewModel()){
 
     Scaffold(
         topBar ={
-            TopAppBar(title = { Text(text = "Listado de Reportes") })
+            TopAppBar(title = { Text(text = "Listado de Vehiculos") })
         },
 
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    navHostController.navigate(Screen.RegistroProblema.route + "/${Id}")
+                    navHostController.navigate(Screen.registroNuevoVehiculos.route)
                 },
             ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "Nuevo")
@@ -47,27 +46,27 @@ fun ConsultaReportesScreen(navHostController: NavHostController, Id: Int, viewMo
             .fillMaxSize()
             .padding(it)
         ) {
-            ReporteListBody(navHostController = navHostController, uiState.Reporte, Onclick = {}, viewModel)
+            VehiculoListBody(navHostController = navHostController, uiState.Vehiculo, Onclick = {}, viewModel)
         }
 
     }
 }
 
 @Composable
-fun ReporteListBody(navHostController: NavHostController, reporteList: List<ReporteDto>, Onclick : (ReporteDto) -> Unit,
-                     viewModel: ReportesViewModel = hiltViewModel()
+fun VehiculoListBody(navHostController: NavHostController, vehiculoList: List<VehiculoDto>, Onclick : (VehiculoDto) -> Unit,
+                    viewModel: VehiculosViewModel = hiltViewModel()
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         LazyColumn {
-            items(reporteList) { reportes ->
-                ReporteRow(navHostController = navHostController, reportes, viewModel)
+            items(vehiculoList) { vehiculos ->
+                VehiculoRow(navHostController = navHostController, vehiculos, viewModel)
             }
         }
     }
 }
 
 @Composable
-fun ReporteRow(navHostController: NavHostController, reporte: ReporteDto, viewModel: ReportesViewModel = hiltViewModel()) {
+fun VehiculoRow(navHostController: NavHostController, vehiculo: VehiculoDto, viewModel: VehiculosViewModel = hiltViewModel()) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -81,8 +80,9 @@ fun ReporteRow(navHostController: NavHostController, reporte: ReporteDto, viewMo
         ) {
 
             Column() {
-                Text(text = reporte.concepto)
-                Text(text = reporte.fecha)
+                Text(text = vehiculo.marca)
+                Text(text = vehiculo.modelo)
+                Text(text = vehiculo.year)
             }
 
             Row(
@@ -90,16 +90,10 @@ fun ReporteRow(navHostController: NavHostController, reporte: ReporteDto, viewMo
                 horizontalArrangement = Arrangement.End
             ) {
 
-                IconButton(
-                    onClick = {
-                        navHostController.navigate(Screen.editarReporte.route)
-                    }) {
-                    Icon(imageVector = Icons.Default.Edit, contentDescription = "edit")
-                }
 
                 IconButton(
                     onClick = {
-                        viewModel.eliminar(reporte.reporteId)
+                        viewModel.eliminar(vehiculo.vehiculoId)
                     }) {
                     Icon(imageVector = Icons.Default.Delete, contentDescription = "delete")
                 }

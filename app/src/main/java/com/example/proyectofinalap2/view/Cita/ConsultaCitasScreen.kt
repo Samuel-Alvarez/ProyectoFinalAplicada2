@@ -88,7 +88,7 @@ fun CitaRow(navHostController: NavHostController, cita: CitaDto, viewModel: Cita
 
                 IconButton(
                     onClick = {
-
+                        navHostController.navigate(Screen.editarCita.route)
                     }) {
                     Icon(imageVector = Icons.Default.Edit, contentDescription = "edit")
                 }

@@ -110,7 +110,7 @@ class ClienteViewModel @Inject constructor(
         viewModelScope.launch {
             clienteRepository.postClientes(
                 ClienteDto(
-                    clienteId =0,
+                    clienteId = clienteId.toInt(),
                     vehiculoId = 0,
                     nombres = nombres,
                     telefono = telefono,

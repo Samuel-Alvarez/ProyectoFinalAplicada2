@@ -4,12 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AreaChart
-import androidx.compose.material.icons.filled.Assignment
-import androidx.compose.material.icons.filled.PhoneAndroid
-import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -17,10 +15,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.proyectofinalap2.util.Screen
 import com.example.proyectofinalap2.view.ClienteViewModel
+import com.example.proyectofinalap2.view.MecanicoViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun registroNuevoClientes(){
+fun registroNuevoClientes(navHostController: NavHostController,  viewModel: ClienteViewModel = hiltViewModel()){
 
     Scaffold(
         topBar ={
@@ -33,34 +32,21 @@ fun registroNuevoClientes(){
         Column(modifier = Modifier.fillMaxWidth().padding(8.dp, vertical = 60.dp)) {
 
             OutlinedTextField(
-                value = "",
-                onValueChange = {  },
+                value = viewModel.nombres,
+                onValueChange = { viewModel.nombres = it },
                 label = { Text(text = "Nombres") },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Default.Assignment,
+                        imageVector = Icons.Default.Person,
                         contentDescription = null
                     )
                 }
             )
 
             OutlinedTextField(
-                value = "",
-                onValueChange = { },
-                label = { Text(text = "Area") },
-                modifier = Modifier.fillMaxWidth(),
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.AreaChart,
-                        contentDescription = null
-                    )
-                }
-            )
-
-            OutlinedTextField(
-                value = "",
-                onValueChange = {  },
+                value = viewModel.telefono,
+                onValueChange = {viewModel.telefono = it },
                 label = { Text(text = "Telefono") },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
@@ -71,12 +57,38 @@ fun registroNuevoClientes(){
                 }
             )
 
+            OutlinedTextField(
+                value = viewModel.direccion,
+                onValueChange = { viewModel.direccion = it },
+                label = { Text(text = "Direccion") },
+                modifier = Modifier.fillMaxWidth(),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Directions,
+                        contentDescription = null
+                    )
+                }
+            )
+            OutlinedTextField(
+                value = "",
+                onValueChange = { viewModel.vehiculoId },
+                label = { Text(text = "Id Vehiculo") },
+                modifier = Modifier.fillMaxWidth(),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.CarRental,
+                        contentDescription = null
+                    )
+                }
+            )
+
             Button(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(20.dp),
                 onClick = {
-
+                    viewModel.guardar()
+                    navHostController.navigate(Screen.ConsultaClientesScreen.route)
                 }
             ) {
                 Icon(imageVector = Icons.Filled.Save, contentDescription = "Save")

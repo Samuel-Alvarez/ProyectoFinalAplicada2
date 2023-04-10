@@ -1,4 +1,4 @@
-package com.example.proyectofinalap2.view.Vehiculo
+package com.example.proyectofinalap2.view.Cliente
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,15 +13,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.proyectofinalap2.util.Screen
-import com.example.proyectofinalap2.view.MecanicoViewModel
+import com.example.proyectofinalap2.view.ClienteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun registroNuevoVehiculo(navHostController: NavHostController, viewModel: VehiculosViewModel = hiltViewModel()){
+fun editarClientes(navHostController: NavHostController, viewModel: ClienteViewModel = hiltViewModel()){
 
     Scaffold(
         topBar ={
-            TopAppBar(title = { Text(text = "Registrar Nuevo Vehiculo") },
+            TopAppBar(title = { Text(text = "Editar Cliente") },
             )
         },
 
@@ -30,35 +30,47 @@ fun registroNuevoVehiculo(navHostController: NavHostController, viewModel: Vehic
         Column(modifier = Modifier.fillMaxWidth().padding(8.dp, vertical = 60.dp)) {
 
             OutlinedTextField(
-                value = viewModel.marca,
-                onValueChange = { viewModel.marca = it },
-                label = { Text(text = "Marca") },
+                value = viewModel.nombres,
+                onValueChange = { viewModel.nombres = it },
+                label = { Text(text = "Nombres") },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Default.BrandingWatermark,
+                        imageVector = Icons.Default.Person,
                         contentDescription = null
                     )
                 }
             )
 
             OutlinedTextField(
-                value = viewModel.modelo,
-                onValueChange = { viewModel.modelo = it},
-                label = { Text(text = "Modelo") },
+                value = viewModel.telefono,
+                onValueChange = {viewModel.telefono = it },
+                label = { Text(text = "Telefono") },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Default.ModelTraining,
+                        imageVector = Icons.Default.PhoneAndroid,
                         contentDescription = null
                     )
                 }
             )
 
             OutlinedTextField(
-                value = viewModel.year,
-                onValueChange = { viewModel.year = it },
-                label = { Text(text = "Añio") },
+                value = viewModel.direccion,
+                onValueChange = { viewModel.direccion = it },
+                label = { Text(text = "Direccion") },
+                modifier = Modifier.fillMaxWidth(),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.Directions,
+                        contentDescription = null
+                    )
+                }
+            )
+            OutlinedTextField(
+                value = "",
+                onValueChange = { viewModel.vehiculoId },
+                label = { Text(text = "Id Vehiculo") },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(
@@ -73,9 +85,8 @@ fun registroNuevoVehiculo(navHostController: NavHostController, viewModel: Vehic
                     .fillMaxWidth()
                     .padding(20.dp),
                 onClick = {
-                    viewModel.guardar()
-                    navHostController.navigate(Screen.ConsultaVehiculoScreen.route)
-
+                    viewModel.modificar()
+                    navHostController.navigate(Screen.ConsultaClientesScreen.route)
                 }
             ) {
                 Icon(imageVector = Icons.Filled.Save, contentDescription = "Save")

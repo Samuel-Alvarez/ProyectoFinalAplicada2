@@ -112,8 +112,8 @@ fun editarReporte(navHostController: NavHostController, Id: Int, mecanicoId:Int,
                     }
                 )
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {viewModel.clienteId},
+                    value = viewModel.clienteId,
+                    onValueChange = {viewModel.clienteId = it},
                     label = { Text(text = "Id Cliente") },
                     modifier = Modifier.fillMaxWidth(),
                     leadingIcon = {

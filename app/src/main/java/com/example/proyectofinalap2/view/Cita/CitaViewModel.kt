@@ -38,7 +38,7 @@ class CitasViewModel @Inject constructor(
     var citaId by mutableStateOf(0)
     var concepto by mutableStateOf("")
     var fecha by mutableStateOf("")
-    var clienteId by mutableStateOf(0)
+    var clienteId by mutableStateOf("")
     var mecanicoId by mutableStateOf(0)
 
     private var _state = mutableStateOf(CitaListState())
@@ -81,6 +81,8 @@ class CitasViewModel @Inject constructor(
                     }
                     concepto = uiStateCita.value.cita!!.concepto
                     fecha = uiStateCita.value.cita!!.fecha
+                    clienteId = uiStateCita.value.cita!!.clienteId.toString()
+                    mecanicoId = uiStateCita.value.cita!!.mecanicoId
                 }
                 is Resource.Error -> {
                     uiStateCita.update { it.copy(error = result.message ?: "Error desconocido") }
@@ -93,11 +95,11 @@ class CitasViewModel @Inject constructor(
         viewModelScope.launch {
             citaRepository.putCitas(citaId.toInt(),
                 CitaDto(
-                    citaId = citaId.toInt(),
+                    citaId = 0,
                     concepto = concepto,
                     fecha = fecha,
-                    uiStateCita.value.cita!!.clienteId,
-                    uiStateCita.value.cita!!.mecanicoId
+                    clienteId = clienteId.toInt(),
+                   mecanicoId = mecanicoId.toInt()
                 )
             )
         }
@@ -110,8 +112,8 @@ class CitasViewModel @Inject constructor(
                     citaId =0,
                     concepto = concepto,
                     fecha = fecha,
-                    clienteId = citaId,
-                    mecanicoId = mecanicoId,
+                    clienteId = clienteId.toInt(),
+                    mecanicoId = mecanicoId.toInt()
 
                     )
             )

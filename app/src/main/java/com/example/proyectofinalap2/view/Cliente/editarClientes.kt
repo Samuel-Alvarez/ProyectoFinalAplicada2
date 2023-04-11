@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -17,7 +18,12 @@ import com.example.proyectofinalap2.view.ClienteViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun editarClientes(navHostController: NavHostController, viewModel: ClienteViewModel = hiltViewModel()){
+fun editarClientes(navHostController: NavHostController, Id:Int, viewModel: ClienteViewModel = hiltViewModel()){
+
+    remember {
+        viewModel.setCliente(Id)
+        0
+    }
 
     Scaffold(
         topBar ={
@@ -27,7 +33,9 @@ fun editarClientes(navHostController: NavHostController, viewModel: ClienteViewM
 
         ){it
 
-        Column(modifier = Modifier.fillMaxWidth().padding(8.dp, vertical = 60.dp)) {
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp, vertical = 60.dp)) {
 
             OutlinedTextField(
                 value = viewModel.nombres,
@@ -68,8 +76,8 @@ fun editarClientes(navHostController: NavHostController, viewModel: ClienteViewM
                 }
             )
             OutlinedTextField(
-                value = "",
-                onValueChange = { viewModel.vehiculoId },
+                value = viewModel.vehiculoId,
+                onValueChange = { viewModel.vehiculoId = it},
                 label = { Text(text = "Id Vehiculo") },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {

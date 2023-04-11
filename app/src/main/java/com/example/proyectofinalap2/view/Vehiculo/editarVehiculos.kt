@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -17,7 +18,12 @@ import com.example.proyectofinalap2.util.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun editarVehiculos(navHostController: NavHostController, viewModel: VehiculosViewModel = hiltViewModel()){
+fun editarVehiculos(navHostController: NavHostController, Id:Int, viewModel: VehiculosViewModel = hiltViewModel()){
+
+    remember {
+        viewModel.setVehiculo(Id)
+        0
+    }
 
     Scaffold(
         topBar ={
@@ -28,6 +34,19 @@ fun editarVehiculos(navHostController: NavHostController, viewModel: VehiculosVi
         ){it
 
         Column(modifier = Modifier.fillMaxWidth().padding(8.dp, vertical = 60.dp)) {
+
+            OutlinedTextField(
+                value = viewModel.marca,
+                onValueChange = {viewModel.marca = it },
+                label = { Text(text = "Marca") },
+                modifier = Modifier.fillMaxWidth(),
+                leadingIcon = {
+                    Icon(
+                        imageVector = Icons.Default.PhoneAndroid,
+                        contentDescription = null
+                    )
+                }
+            )
 
             OutlinedTextField(
                 value = viewModel.modelo,
@@ -42,18 +61,6 @@ fun editarVehiculos(navHostController: NavHostController, viewModel: VehiculosVi
                 }
             )
 
-            OutlinedTextField(
-                value = viewModel.marca,
-                onValueChange = {viewModel.marca = it },
-                label = { Text(text = "Marca") },
-                modifier = Modifier.fillMaxWidth(),
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.PhoneAndroid,
-                        contentDescription = null
-                    )
-                }
-            )
 
             OutlinedTextField(
                 value = viewModel.year,
@@ -74,7 +81,7 @@ fun editarVehiculos(navHostController: NavHostController, viewModel: VehiculosVi
                     .padding(20.dp),
                 onClick = {
                     viewModel.modificar()
-                    navHostController.navigate(Screen.ConsultaClientesScreen.route)
+                    navHostController.navigate(Screen.ConsultaVehiculoScreen.route)
                 }
             ) {
                 Icon(imageVector = Icons.Filled.Save, contentDescription = "Save")

@@ -54,7 +54,7 @@ fun ConsultaClientesScreen(navHostController: NavHostController, viewModel: Clie
 
 @Composable
 fun ClienteListBody(navHostController: NavHostController, clienteList: List<ClienteDto>, Onclick : (ClienteDto) -> Unit,
-                     viewModel: ClienteViewModel = hiltViewModel()
+                    viewModel: ClienteViewModel = hiltViewModel()
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         LazyColumn {
@@ -71,7 +71,6 @@ fun ClienteRow(navHostController: NavHostController, cliente: ClienteDto, viewMo
         Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { navHostController.navigate(Screen.editarClientes.route + "/${cliente.clienteId}") }
     ) {
 
         Row(
@@ -81,6 +80,7 @@ fun ClienteRow(navHostController: NavHostController, cliente: ClienteDto, viewMo
         ) {
 
             Column() {
+                Text(text = cliente.clienteId.toString())
                 Text(text = cliente.nombres)
                 Text(text = cliente.direccion)
                 Text(text = cliente.telefono)
@@ -93,7 +93,7 @@ fun ClienteRow(navHostController: NavHostController, cliente: ClienteDto, viewMo
 
                 IconButton(
                     onClick = {
-                        navHostController.navigate(Screen.editarClientes.route)
+                        navHostController.navigate(Screen.editarClientes.route + "/${cliente.clienteId}")
                     }) {
                     Icon(imageVector = Icons.Default.Edit, contentDescription = "edit")
                 }

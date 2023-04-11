@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.proyectofinalap2.data.remote.dto.ClienteDto
 import com.example.proyectofinalap2.data.repository.ClienteRepository
+import com.example.proyectofinalap2.data.repository.VehiculoRepository
 import com.example.proyectofinalap2.util.Resource
 import com.example.proyectofinalap2.view.Cliente.ClienteListState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +27,8 @@ data class ClientesState(
 
 @HiltViewModel
 class ClienteViewModel @Inject constructor(
-    private val clienteRepository: ClienteRepository
+    private val clienteRepository: ClienteRepository,
+    private val vehiculoRepository: VehiculoRepository
 ): ViewModel() {
 
 
@@ -36,8 +38,11 @@ class ClienteViewModel @Inject constructor(
     var uiStateCliente = MutableStateFlow(ClientesState())
         private set
 
+    var expanded by mutableStateOf(false)
+    var listVehiculo  = vehiculoRepository.gestVehiculos()
+
     var clienteId by mutableStateOf(0)
-    var vehiculoId by mutableStateOf(0)
+    var vehiculoId by mutableStateOf("")
     var nombres by mutableStateOf("")
     var telefono by mutableStateOf("")
     var direccion by mutableStateOf("")
@@ -83,6 +88,7 @@ class ClienteViewModel @Inject constructor(
                     nombres = uiStateCliente.value.cliente!!.nombres
                     telefono = uiStateCliente.value.cliente!!.telefono
                     direccion = uiStateCliente.value.cliente!!.direccion
+                    vehiculoId = uiStateCliente.value.cliente!!.vehiculoId.toString()
                 }
                 is Resource.Error -> {
                     uiStateCliente.update { it.copy(error = result.message ?: "Error desconocido") }
@@ -99,9 +105,9 @@ class ClienteViewModel @Inject constructor(
                     nombres = nombres,
                     telefono = telefono,
                     direccion = direccion,
-                    uiStateCliente.value.cliente!!.vehiculoId,
+                    vehiculoId = vehiculoId.toInt(),
 
-                )
+                    )
             )
         }
     }
@@ -111,12 +117,12 @@ class ClienteViewModel @Inject constructor(
             clienteRepository.postClientes(
                 ClienteDto(
                     clienteId = clienteId.toInt(),
-                    vehiculoId = 0,
+                    vehiculoId = vehiculoId.toInt(),
                     nombres = nombres,
                     telefono = telefono,
                     direccion = direccion,
 
-                )
+                    )
             )
         }
     }

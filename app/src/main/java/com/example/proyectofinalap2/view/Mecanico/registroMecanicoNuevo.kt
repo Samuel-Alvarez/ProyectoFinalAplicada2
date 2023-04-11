@@ -4,10 +4,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AreaChart
-import androidx.compose.material.icons.filled.Assignment
-import androidx.compose.material.icons.filled.PhoneAndroid
-import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -39,7 +36,7 @@ fun registroMecanicoNuevo(navHostController: NavHostController, viewModel: Mecan
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Default.Assignment,
+                        imageVector = Icons.Default.Person,
                         contentDescription = null
                     )
                 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -54,7 +55,7 @@ fun ConsultaVehiculoScreen(navHostController: NavHostController, viewModel: Vehi
 
 @Composable
 fun VehiculoListBody(navHostController: NavHostController, vehiculoList: List<VehiculoDto>, Onclick : (VehiculoDto) -> Unit,
-                    viewModel: VehiculosViewModel = hiltViewModel()
+                     viewModel: VehiculosViewModel = hiltViewModel()
 ) {
     Column(modifier = Modifier.fillMaxWidth()) {
         LazyColumn {
@@ -80,6 +81,7 @@ fun VehiculoRow(navHostController: NavHostController, vehiculo: VehiculoDto, vie
         ) {
 
             Column() {
+                Text(text = vehiculo.vehiculoId.toString())
                 Text(text = vehiculo.marca)
                 Text(text = vehiculo.modelo)
                 Text(text = vehiculo.year)
@@ -89,6 +91,13 @@ fun VehiculoRow(navHostController: NavHostController, vehiculo: VehiculoDto, vie
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
+
+                IconButton(
+                    onClick = {
+                        navHostController.navigate(Screen.editarVehiculo.route +"/${vehiculo.vehiculoId}")
+                    }) {
+                    Icon(imageVector = Icons.Default.Edit, contentDescription = "delete")
+                }
 
 
                 IconButton(

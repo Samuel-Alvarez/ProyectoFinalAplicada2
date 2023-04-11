@@ -39,7 +39,7 @@ class ReportesViewModel @Inject constructor(
         private set
 
     var reporteId by mutableStateOf(0)
-    var clienteId by mutableStateOf(0)
+    var clienteId by mutableStateOf("")
     var mecanicoId by mutableStateOf(0)
     var fecha by mutableStateOf("")
     var concepto by mutableStateOf("")
@@ -88,6 +88,8 @@ class ReportesViewModel @Inject constructor(
                     }
                     concepto = uiStateReporte.value.reporte!!.concepto
                     fecha = uiStateReporte.value.reporte!!.fecha
+                    clienteId = uiStateReporte.value.reporte!!.clienteId.toString()
+                    mecanicoId = uiStateReporte.value.reporte!!.mecanicoId
                 }
                 is Resource.Error -> {
                     uiStateReporte.update { it.copy(error = result.message ?: "Error desconocido") }
@@ -103,8 +105,8 @@ class ReportesViewModel @Inject constructor(
                     reporteId = reporteId.toInt(),
                     concepto = concepto,
                     fecha = fecha,
-                    uiStateReporte.value.reporte!!.clienteId,
-                    uiStateReporte.value.reporte!!.mecanicoId
+                    clienteId = clienteId.toInt(),
+                    mecanicoId = 1
                 )
             )
         }
@@ -114,8 +116,8 @@ class ReportesViewModel @Inject constructor(
         viewModelScope.launch {
             reportesRepository.postReportes(
                 ReporteDto(
-                    mecanicoId =mecanicoId,
-                    clienteId = 1,
+                    mecanicoId =mecanicoId.toInt(),
+                    clienteId = clienteId.toInt(),
                     reporteId = 0,
                     concepto = concepto,
                     fecha = fecha

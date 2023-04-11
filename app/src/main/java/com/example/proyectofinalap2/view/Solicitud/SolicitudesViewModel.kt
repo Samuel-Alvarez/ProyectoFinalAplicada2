@@ -36,7 +36,7 @@ class SolicitudesViewModel @Inject constructor(
         private set
 
     var solicitudId by mutableStateOf(0)
-    var clienteId by mutableStateOf(0)
+    var clienteId by mutableStateOf("")
     var mecanicoId by mutableStateOf(0)
     var concepto by mutableStateOf("")
     var fecha by mutableStateOf("")
@@ -83,6 +83,7 @@ class SolicitudesViewModel @Inject constructor(
                     }
                     concepto = uiStateSolicitud.value.solicitud!!.concepto
                     fecha = uiStateSolicitud.value.solicitud!!.fecha
+                    clienteId = uiStateSolicitud.value.solicitud!!.clienteId.toString()
                 }
                 is Resource.Error -> {
                     uiStateSolicitud.update { it.copy(error = result.message ?: "Error desconocido") }
@@ -98,7 +99,7 @@ class SolicitudesViewModel @Inject constructor(
                     solicitudId = solicitudId.toInt(),
                     concepto = concepto,
                     fecha = fecha,
-                    uiStateSolicitud.value.solicitud!!.clienteId,
+                    clienteId = clienteId.toInt(),
                     uiStateSolicitud.value.solicitud!!.mecanicoId
                 )
             )
@@ -110,7 +111,7 @@ class SolicitudesViewModel @Inject constructor(
             solicitudesRepository.postSolicitudes(
                 SolicitudDto(
                     mecanicoId = mecanicoId,
-                    clienteId = 1,
+                    clienteId = clienteId.toInt(),
                     solicitudId = 0,
                     concepto = concepto,
                     fecha = fecha

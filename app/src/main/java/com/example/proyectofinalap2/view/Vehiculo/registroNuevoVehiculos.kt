@@ -58,7 +58,7 @@ fun registroNuevoVehiculo(navHostController: NavHostController, viewModel: Vehic
             OutlinedTextField(
                 value = viewModel.year,
                 onValueChange = { viewModel.year = it },
-                label = { Text(text = "Añio") },
+                label = { Text(text = "Año") },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(

@@ -69,14 +69,15 @@ fun registroNuevoClientes(navHostController: NavHostController,  viewModel: Clie
                     )
                 }
             )
+
             OutlinedTextField(
-                value = "",
-                onValueChange = { viewModel.vehiculoId },
-                label = { Text(text = "Id Vehiculo") },
+                value = viewModel.vehiculoId.toString(),
+                onValueChange = { viewModel.vehiculoId = it},
+                label = { Text(text = "Vehiculo Id") },
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Default.CarRental,
+                        imageVector = Icons.Default.Directions,
                         contentDescription = null
                     )
                 }

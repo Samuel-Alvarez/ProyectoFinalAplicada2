@@ -31,7 +31,6 @@ class VehiculosViewModel @Inject constructor(
     private val vehiculoRepository: VehiculoRepository
 ): ViewModel() {
 
-
     var uiState = MutableStateFlow(VehichuloListState())
         private set
 

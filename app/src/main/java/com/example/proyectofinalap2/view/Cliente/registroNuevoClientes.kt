@@ -77,7 +77,7 @@ fun registroNuevoClientes(navHostController: NavHostController,  viewModel: Clie
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Default.Directions,
+                        imageVector = Icons.Default.CarRental,
                         contentDescription = null
                     )
                 }

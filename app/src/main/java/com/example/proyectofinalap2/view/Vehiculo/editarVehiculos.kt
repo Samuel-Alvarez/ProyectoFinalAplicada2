@@ -69,7 +69,7 @@ fun editarVehiculos(navHostController: NavHostController, Id:Int, viewModel: Veh
                 modifier = Modifier.fillMaxWidth(),
                 leadingIcon = {
                     Icon(
-                        imageVector = Icons.Default.Directions,
+                        imageVector = Icons.Default.CarRental,
                         contentDescription = null
                     )
                 }

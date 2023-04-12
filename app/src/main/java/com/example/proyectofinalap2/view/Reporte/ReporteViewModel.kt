@@ -30,6 +30,8 @@ data class ReportesState(
 class ReportesViewModel @Inject constructor(
     private val reportesRepository: ReportesRepository
 ): ViewModel() {
+    val reportesEstado = listOf("Solicitado", "Finalizado")
+    var expanded by mutableStateOf(false)
 
 
     var uiState = MutableStateFlow(ReporteListStates())
@@ -41,6 +43,7 @@ class ReportesViewModel @Inject constructor(
     var reporteId by mutableStateOf(0)
     var clienteId by mutableStateOf("")
     var mecanicoId by mutableStateOf(0)
+    var estado by mutableStateOf("")
     var fecha by mutableStateOf("")
     var concepto by mutableStateOf("")
 
@@ -88,6 +91,7 @@ class ReportesViewModel @Inject constructor(
                     }
                     concepto = uiStateReporte.value.reporte!!.concepto
                     fecha = uiStateReporte.value.reporte!!.fecha
+                    estado = uiStateReporte.value.reporte!!.estado
                     clienteId = uiStateReporte.value.reporte!!.clienteId.toString()
                     mecanicoId = uiStateReporte.value.reporte!!.mecanicoId
                 }
@@ -104,12 +108,35 @@ class ReportesViewModel @Inject constructor(
                 ReporteDto(
                     reporteId = reporteId.toInt(),
                     concepto = concepto,
+                    estado = estado,
                     fecha = fecha,
                     clienteId = clienteId.toInt(),
                     mecanicoId = 1
                 )
             )
         }
+        reportesRepository.gestReportes().onEach { result->
+            when(result){
+                is Resource.Loading -> {
+                    uiState.update {
+                        it.copy(isLoading = true)
+                    }
+                }
+
+                is Resource.Success -> {
+                    uiState.update {
+                        it.copy(Reporte = result.data ?: emptyList())
+                    }
+                }
+
+                is Resource.Error -> {
+                    uiState.update {
+                        it.copy(error = result.message ?: "Error desconocido")
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
+
     }
 
     fun guardar(){
@@ -120,10 +147,33 @@ class ReportesViewModel @Inject constructor(
                     clienteId = clienteId.toInt(),
                     reporteId = 0,
                     concepto = concepto,
-                    fecha = fecha
+                    fecha = fecha,
+                    estado = estado
                 )
             )
         }
+        reportesRepository.gestReportes().onEach { result->
+            when(result){
+                is Resource.Loading -> {
+                    uiState.update {
+                        it.copy(isLoading = true)
+                    }
+                }
+
+                is Resource.Success -> {
+                    uiState.update {
+                        it.copy(Reporte = result.data ?: emptyList())
+                    }
+                }
+
+                is Resource.Error -> {
+                    uiState.update {
+                        it.copy(error = result.message ?: "Error desconocido")
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
+
     }
     fun eliminar(id:Int){
         viewModelScope.launch {

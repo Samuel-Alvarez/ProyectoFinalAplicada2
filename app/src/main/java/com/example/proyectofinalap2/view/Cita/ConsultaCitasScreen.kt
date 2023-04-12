@@ -9,7 +9,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -79,12 +78,25 @@ fun CitaRow(navHostController: NavHostController, cita: CitaDto, viewModel: Cita
             Column() {
                 Text(text = cita.concepto)
                 Text(text = cita.fecha)
+
+                Icon(
+                    imageVector = when (cita.estado){
+                        "Solicitada" -> {
+                            Icons.Default.Star
+                        }
+                        else -> {
+                            Icons.Default.TaskAlt
+                        }
+                    }, contentDescription = cita.estado
+                )
             }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
+
+
 
                 IconButton(
                     onClick = {
@@ -104,3 +116,4 @@ fun CitaRow(navHostController: NavHostController, cita: CitaDto, viewModel: Cita
     }
     Divider(Modifier.fillMaxWidth())
 }
+

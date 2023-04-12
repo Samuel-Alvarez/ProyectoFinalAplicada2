@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Delete
-import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -84,12 +82,23 @@ fun SolicitudRow(navHostController: NavHostController, solicitud: SolicitudDto, 
             Column() {
                 Text(text = solicitud.concepto)
                 Text(text = solicitud.fecha)
+                Icon(
+                    imageVector = when (solicitud.estado){
+                        "Solicitada" -> {
+                            Icons.Default.Star
+                        }
+                        else -> {
+                            Icons.Default.TaskAlt
+                        }
+                    }, contentDescription = solicitud.estado
+                )
             }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
+
 
                 IconButton(
                     onClick = {

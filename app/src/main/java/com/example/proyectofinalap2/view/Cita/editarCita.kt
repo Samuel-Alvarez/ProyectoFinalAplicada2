@@ -1,6 +1,7 @@
 package com.example.proyectofinalap2.view.Cita
 
 import android.app.DatePickerDialog
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -101,6 +103,46 @@ fun editarCita(navHostController: NavHostController, Id:Int, mecanicoId: Int, vi
                         )
                     }
                 )
+                OutlinedTextField(
+
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clickable { viewModel.expanded = true },
+                    value = viewModel.estado,
+                    enabled = false, readOnly = true,
+                    label = { Text(text = "Estado") },
+                    onValueChange = { viewModel.estado = it },
+                    leadingIcon = {
+                        Icon(
+                            imageVector = Icons.Default.QueryStats,
+                            contentDescription = null
+                        )
+                    }
+                )
+
+                DropdownMenu(
+                    expanded = viewModel.expanded,
+                    onDismissRequest = { viewModel.expanded = false },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 8.dp)
+
+                ) {
+                    viewModel.citasEstado.forEach { opcion ->
+                        DropdownMenuItem(
+                            text = {
+                                Text(text = opcion, textAlign = TextAlign.Center)
+                            },
+                            onClick = {
+                                viewModel.expanded = false
+                                viewModel.estado = opcion
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 8.dp)
+                        )
+                    }
+                }
                 OutlinedTextField(
                     value = viewModel.mecanicoId.toString(),
                     onValueChange = {viewModel.mecanicoId},

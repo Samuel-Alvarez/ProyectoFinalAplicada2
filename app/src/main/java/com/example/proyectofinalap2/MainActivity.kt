@@ -93,6 +93,7 @@ fun myApp(){
                 type = NavType.IntType
             })
         ){
+
             ConsultaCitasScreen(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
         }
 
@@ -117,6 +118,7 @@ fun myApp(){
                 type = NavType.IntType
             })
         ){
+
             CitaTaller(navHostController = navHostController, Id = it.arguments?.getInt("id")?: 0)
         }
 

@@ -28,6 +28,9 @@ class CitasViewModel @Inject constructor(
     private val citaRepository: CitasRepository
 ): ViewModel() {
 
+    val citasEstado = listOf("Solicita", "Finalizada")
+    var expanded by mutableStateOf(false)
+
 
     var uiState = MutableStateFlow(CitaListState())
         private set
@@ -38,6 +41,7 @@ class CitasViewModel @Inject constructor(
     var citaId by mutableStateOf(0)
     var concepto by mutableStateOf("")
     var fecha by mutableStateOf("")
+    var estado by mutableStateOf("")
     var clienteId by mutableStateOf("")
     var mecanicoId by mutableStateOf(0)
 
@@ -81,6 +85,7 @@ class CitasViewModel @Inject constructor(
                     }
                     concepto = uiStateCita.value.cita!!.concepto
                     fecha = uiStateCita.value.cita!!.fecha
+                    estado = uiStateCita.value.cita!!.estado
                     clienteId = uiStateCita.value.cita!!.clienteId.toString()
                     mecanicoId = uiStateCita.value.cita!!.mecanicoId
                 }
@@ -98,11 +103,33 @@ class CitasViewModel @Inject constructor(
                     citaId = 0,
                     concepto = concepto,
                     fecha = fecha,
+                    estado = estado,
                     clienteId = clienteId.toInt(),
                    mecanicoId = mecanicoId.toInt()
                 )
             )
         }
+        citaRepository.gestCitas().onEach { result->
+            when(result){
+                is Resource.Loading -> {
+                    uiState.update {
+                        it.copy(isLoading = true)
+                    }
+                }
+
+                is Resource.Success -> {
+                    uiState.update {
+                        it.copy(Cita = result.data ?: emptyList())
+                    }
+                }
+
+                is Resource.Error -> {
+                    uiState.update {
+                        it.copy(error = result.message ?: "Error desconocido")
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
     fun guardar(){
@@ -112,12 +139,34 @@ class CitasViewModel @Inject constructor(
                     citaId =0,
                     concepto = concepto,
                     fecha = fecha,
+                    estado = estado,
                     clienteId = clienteId.toInt(),
                     mecanicoId = mecanicoId.toInt()
 
-                    )
+                )
             )
         }
+        citaRepository.gestCitas().onEach { result->
+            when(result){
+                is Resource.Loading -> {
+                    uiState.update {
+                        it.copy(isLoading = true)
+                    }
+                }
+
+                is Resource.Success -> {
+                    uiState.update {
+                        it.copy(Cita = result.data ?: emptyList())
+                    }
+                }
+
+                is Resource.Error -> {
+                    uiState.update {
+                        it.copy(error = result.message ?: "Error desconocido")
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
     }
     fun eliminar(id:Int){
         viewModelScope.launch {

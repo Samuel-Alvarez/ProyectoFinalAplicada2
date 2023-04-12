@@ -28,6 +28,8 @@ data class SolicitudesState(
 class SolicitudesViewModel @Inject constructor(
     private val solicitudesRepository: SolicitudesRepository
 ): ViewModel() {
+    val solicitudesEstado = listOf("Solicitada", "Finalizada")
+    var expanded by mutableStateOf(false)
 
     var uiState = MutableStateFlow(SolicitudListState())
         private set
@@ -40,6 +42,7 @@ class SolicitudesViewModel @Inject constructor(
     var mecanicoId by mutableStateOf(0)
     var concepto by mutableStateOf("")
     var fecha by mutableStateOf("")
+    var estado by mutableStateOf("")
 
 
     private var _state = mutableStateOf(SolicitudListState())
@@ -83,6 +86,7 @@ class SolicitudesViewModel @Inject constructor(
                     }
                     concepto = uiStateSolicitud.value.solicitud!!.concepto
                     fecha = uiStateSolicitud.value.solicitud!!.fecha
+                    estado = uiStateSolicitud.value.solicitud!!.estado
                     clienteId = uiStateSolicitud.value.solicitud!!.clienteId.toString()
                 }
                 is Resource.Error -> {
@@ -99,11 +103,33 @@ class SolicitudesViewModel @Inject constructor(
                     solicitudId = solicitudId.toInt(),
                     concepto = concepto,
                     fecha = fecha,
+                    estado = estado,
                     clienteId = clienteId.toInt(),
                     uiStateSolicitud.value.solicitud!!.mecanicoId
                 )
             )
         }
+        solicitudesRepository.gestSolicitudes().onEach { result->
+            when(result){
+                is Resource.Loading -> {
+                    uiState.update {
+                        it.copy(isLoading = true)
+                    }
+                }
+
+                is Resource.Success -> {
+                    uiState.update {
+                        it.copy(Solicitud = result.data ?: emptyList())
+                    }
+                }
+
+                is Resource.Error -> {
+                    uiState.update {
+                        it.copy(error = result.message ?: "Error desconocido")
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
     }
 
     fun guardar(){
@@ -114,10 +140,32 @@ class SolicitudesViewModel @Inject constructor(
                     clienteId = clienteId.toInt(),
                     solicitudId = 0,
                     concepto = concepto,
-                    fecha = fecha
+                    fecha = fecha,
+                    estado = estado
                 )
             )
         }
+        solicitudesRepository.gestSolicitudes().onEach { result->
+            when(result){
+                is Resource.Loading -> {
+                    uiState.update {
+                        it.copy(isLoading = true)
+                    }
+                }
+
+                is Resource.Success -> {
+                    uiState.update {
+                        it.copy(Solicitud = result.data ?: emptyList())
+                    }
+                }
+
+                is Resource.Error -> {
+                    uiState.update {
+                        it.copy(error = result.message ?: "Error desconocido")
+                    }
+                }
+            }
+        }.launchIn(viewModelScope)
     }
     fun eliminar(id:Int){
         viewModelScope.launch {
